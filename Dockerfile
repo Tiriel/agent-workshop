@@ -18,7 +18,9 @@ VOLUME /app/var/
 # persistent / runtime deps
 # hadolint ignore=DL3008
 RUN apt-get update && apt-get install -y --no-install-recommends \
+	acl \
 	file \
+	gettext \
 	git \
 	&& rm -rf /var/lib/apt/lists/*
 
@@ -40,6 +42,9 @@ ENV MERCURE_TRANSPORT_URL=bolt:///data/mercure.db
 ENV PHP_INI_SCAN_DIR=":$PHP_INI_DIR/app.conf.d"
 
 ###> recipes ###
+###> doctrine/doctrine-bundle ###
+RUN install-php-extensions pdo_pgsql
+###< doctrine/doctrine-bundle ###
 ###< recipes ###
 
 COPY --link frankenphp/conf.d/10-app.ini $PHP_INI_DIR/app.conf.d/
