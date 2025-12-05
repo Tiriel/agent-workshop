@@ -3,9 +3,32 @@
 {% block title %}Latest Posts{% endblock %}
 
 {% block body %}
+<!-- Hero Section -->
+<div class="row mb-5">
+    <div class="col-12">
+        <div class="card shadow-sm border-0" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+            <div class="card-body p-5 text-white">
+                <div class="row align-items-center">
+                    <div class="col-lg-8">
+                        <h1 class="display-4 fw-bold mb-3">Welcome to Our Blog</h1>
+                        <p class="lead mb-4 opacity-90">
+                            Discover insightful articles, thought-provoking stories, and the latest updates from our community. 
+                            Explore our collection of posts covering a wide range of topics and perspectives.
+                        </p>
+                        <a href="{{ path('app_post_list') }}" class="btn btn-light btn-lg shadow-sm">
+                            Browse All Posts →
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Latest Posts Section -->
 <div class="row mb-4">
     <div class="col-12">
-        <h1 class="display-5 fw-bold mb-4">Latest Posts</h1>
+        <h2 class="display-6 fw-bold mb-4">Latest Posts</h2>
     </div>
 </div>
 
