@@ -1,3 +1,43 @@
 body {
     background-color: white;
 }
+
+/* Post card hover effects */
+.post-card {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.post-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.15) !important;
+}
+
+/* Post content styling */
+.post-content {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #333;
+}
+
+.post-content p {
+    margin-bottom: 1.25rem;
+}
+
+/* Admin area styling */
+.admin-card {
+    border-left: 4px solid #6f42c1;
+}
+
+.admin-badge {
+    background-color: #6f42c1;
+}
+
+.admin-btn-primary {
+    background-color: #6f42c1;
+    border-color: #6f42c1;
+}
+
+.admin-btn-primary:hover {
+    background-color: #5a32a3;
+    border-color: #5a32a3;
+}

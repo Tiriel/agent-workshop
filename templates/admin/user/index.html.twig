@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}User Management{% endblock %}
+
+{% block body %}
+<div class="row mb-4">
+    <div class="col-12 d-flex justify-content-between align-items-center">
+        <h1 class="display-5 fw-bold mb-0">User Management</h1>
+        <a href="{{ path('app_admin_user_new') }}" class="btn admin-btn-primary text-white">
+            <i class="bi bi-plus-circle"></i> Create New User
+        </a>
+    </div>
+</div>
+
+<twig:Admin:UserList :paginated="true" />
+{% endblock %}

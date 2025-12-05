@@ -1,0 +1,32 @@
+{% props value = {}, strong = false, small = false, nullable = false %}
+<td>
+    {% set tag = strong is true ? 'strong' : small is true ? 'small' : 'span' %}
+    <{{ tag }}
+        {% if nullable is true %}
+            class="text-muted"
+        {% elseif value is instanceof('\\BackedEnum') %}
+            class="badge admin-badge text-white me-1"
+        {% endif %}
+    >
+    {% if value is instanceof('\\DateTimeInterface') %}
+        {% dump value %}
+        {{ value is not null ? value|date('d-m-Y') : '-' }}
+    {% elseif value is instanceof('\\BackedEnum') %}
+        {{ value.label }}
+    {% elseif value is instanceof('App\\Entity\\User') %}
+        {% if nullable is true and value is null %}
+            -
+        {% else %}
+        {{ value.firstname ?? '-' }} {{ value.lastname ?? '-' }}
+        {% endif %}
+    {% elseif value is iterable %}
+        {% for row in value %}
+        <span class="badge admin-badge text-white me-1">{{ row }}</span>
+        {% else %}
+            -
+        {% endfor %}
+    {% else %}
+        {{ value }}
+    {% endif %}
+    </{{ tag }}>
+</td>

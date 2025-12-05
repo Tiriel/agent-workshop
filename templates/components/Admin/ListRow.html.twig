@@ -1,0 +1,16 @@
+{% props entity, columns, entityName = '' %}
+<tr>
+    {% for column, nullable in columns %}
+        <twig:Admin:ListColumn :value="attribute(entity, column)"
+                              :strong="column in ['title', 'name'] ? true"
+                              :small="'edAt' in column ? true"
+                              :nullable="nullable"
+        />
+    {% endfor %}
+    <td class="text-end">
+        <div class="btn-group" role="group">
+            <a href="{{ path("app_admin_#{entityName}_show", {'id': entity.id}) }}" class="btn btn-sm btn-outline-secondary">View</a>
+            <a href="{{ path("app_admin_#{entityName}_edit", {'id': entity.id}) }}" class="btn btn-sm btn-outline-primary">Edit</a>
+        </div>
+    </td>
+</tr>

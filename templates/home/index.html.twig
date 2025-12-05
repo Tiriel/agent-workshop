@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Latest Posts{% endblock %}
+
+{% block body %}
+<div class="row mb-4">
+    <div class="col-12">
+        <h1 class="display-5 fw-bold mb-4">Latest Posts</h1>
+    </div>
+</div>
+
+{% if last_posts is not empty %}
+
+    <twig:PostList :posts="last_posts"></twig:PostList>
+    <div class="text-center mt-4">
+        <a href="{{ path('app_post_list') }}" class="btn btn-outline-primary btn-lg">See more</a>
+    </div>
+{% else %}
+    <div class="alert alert-info" role="alert">
+        <h4 class="alert-heading">No posts yet!</h4>
+        <p class="mb-0">There are no published posts to display at the moment.</p>
+    </div>
+{% endif %}
+{% endblock %}

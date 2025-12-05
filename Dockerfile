@@ -30,6 +30,8 @@ RUN set -eux; \
 		apcu \
 		intl \
 		opcache \
+        pdo_pgsql \
+        redis \
 		zip \
 	;
 

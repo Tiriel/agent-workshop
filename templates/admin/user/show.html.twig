@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ user.email }} - Admin{% endblock %}
+
+{% block body %}
+<div class="row mb-4">
+    <div class="col-12">
+        <a href="{{ path('app_admin_user_index') }}" class="text-decoration-none text-muted mb-3 d-inline-block">
+            ← Back to users
+        </a>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <div class="card admin-card shadow-sm border-0">
+            <div class="card-header bg-white border-bottom">
+                <h2 class="h4 mb-0">User Details</h2>
+            </div>
+            <div class="card-body">
+                <dl class="row mb-0">
+                    <dt class="col-sm-3 text-muted">ID:</dt>
+                    <dd class="col-sm-9"><code>{{ user.id }}</code></dd>
+                    
+                    <dt class="col-sm-3 text-muted">Email:</dt>
+                    <dd class="col-sm-9">{{ user.email }}</dd>
+                    
+                    <dt class="col-sm-3 text-muted">Name:</dt>
+                    <dd class="col-sm-9">
+                        {% if user.firstname or user.lastname %}
+                            {{ user.firstname ?? '' }} {{ user.lastname ?? '' }}
+                        {% else %}
+                            <span class="text-muted">—</span>
+                        {% endif %}
+                    </dd>
+                    
+                    <dt class="col-sm-3 text-muted">Roles:</dt>
+                    <dd class="col-sm-9">
+                        {% for role in user.roles %}
+                            <span class="badge admin-badge text-white me-1">{{ role }}</span>
+                        {% endfor %}
+                    </dd>
+                </dl>
+            </div>
+            <div class="card-footer bg-white border-top">
+                <div class="d-flex justify-content-between">
+                    <a href="{{ path('app_admin_user_index') }}" class="btn btn-outline-secondary">Back to list</a>
+                    <div>
+                        <a href="{{ path('app_admin_user_edit', {'id': user.id}) }}" class="btn admin-btn-primary text-white me-2">Edit</a>
+                        {{ include('admin/user/_delete_form.html.twig') }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

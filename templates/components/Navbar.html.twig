@@ -1,0 +1,59 @@
+{% props
+    currentRoute = null
+%}
+<nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top shadow-sm">
+    <div class="container">
+        <a class="navbar-brand fw-bold" href="{{ path('app_home_index') }}">Blog</a>
+        <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarNav"
+            aria-controls="navbarNav"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+        >
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav me-auto">
+                <twig:NavLink
+                    route="app_home_index"
+                    label="Home"
+                    active="{{ currentRoute == 'app_home_index' }}"
+                />
+                <twig:NavLink
+                    route="app_post_list"
+                    label="Posts"
+                    active="{{ currentRoute == 'app_post_list' }}"
+                />
+            </ul>
+            <ul class="navbar-nav">
+                {% if app.user %}
+                    {% if is_granted('ROLE_CONTRIBUTOR') %}
+                        <twig:NavLink
+                            route="app_admin_post_index"
+                            label="Admin"
+                        />
+                    {% endif %}
+                    <twig:NavLink
+                        route="app_logout"
+                        label="Logout"
+                    />
+                {% else %}
+                    <twig:NavLink
+                        route="app_login"
+                        label="Login"
+                        active="{{ currentRoute == 'app_login' }}"
+                    />
+                    <twig:NavLink
+                        route="app_register"
+                        label="Register"
+                        active="{{ currentRoute == 'app_register' }}"
+                    />
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>
+

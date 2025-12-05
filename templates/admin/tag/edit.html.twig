@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Tag{% endblock %}
+
+{% block body %}
+<div class="row mb-4">
+    <div class="col-12">
+        <a href="{{ path('app_admin_tag_index') }}" class="text-decoration-none text-muted mb-3 d-inline-block">
+            ← Back to tags
+        </a>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12 col-lg-8">
+        <div class="card admin-card shadow-sm border-0">
+            <div class="card-header bg-white">
+                <h2 class="h4 mb-0">Edit Tag</h2>
+            </div>
+            <div class="card-body">
+                {{ include('admin/tag/_form.html.twig', {'button_label': 'Update Tag'}) }}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

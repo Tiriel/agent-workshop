@@ -1,0 +1,482 @@
+[
+  {
+    "title": "Getting Started with Symfony 7",
+    "content": "Symfony 7 introduces several exciting features that make PHP development more enjoyable. The new asset mapper component simplifies frontend integration without requiring Node.js. Performance improvements in the HTTP client and serializer make applications faster out of the box. The updated MakerBundle provides better code generation with improved templates. Migration from Symfony 6 is straightforward thanks to excellent backward compatibility.",
+    "tags": ["Symfony", "PHP"]
+  },
+  {
+    "title": "Understanding Dependency Injection Patterns",
+    "content": "Dependency injection is a fundamental design pattern that promotes loose coupling and testability. By passing dependencies through constructors or setters, we make our code more modular and easier to maintain. This pattern is especially powerful in Symfony's service container, where dependencies are automatically resolved. Understanding autowiring and service configuration helps developers write cleaner, more maintainable code.",
+    "tags": ["Design Patterns", "DI"]
+  },
+  {
+    "title": "Building RESTful APIs with API Platform",
+    "content": "API Platform transforms Symfony applications into powerful API backends with minimal configuration. By simply annotating your entities, you get a fully functional REST API with pagination, filtering, and validation. The automatic OpenAPI documentation makes it easy for frontend developers to integrate. Custom operations and data providers allow for complex business logic while maintaining clean code architecture.",
+    "tags": ["API", "REST"]
+  },
+  {
+    "title": "Doctrine ORM Best Practices",
+    "content": "Working efficiently with Doctrine requires understanding its query optimization techniques and entity lifecycle. Lazy loading can cause N+1 query problems if not handled properly. Using DQL and query builders provides better performance than loading entire collections. Proper indexing and fetch strategies significantly impact application speed. Repository patterns help organize database logic cleanly.",
+    "tags": ["Doctrine", "ORM", "Database"]
+  },
+  {
+    "title": "Modern PHP Features You Should Use",
+    "content": "PHP 8.3 brings exciting features like typed class constants and readonly amendments. Named arguments make function calls more readable and maintainable. Constructor property promotion reduces boilerplate code significantly. Match expressions provide cleaner alternatives to switch statements. Enums add type safety to previously string-based choices.",
+    "tags": ["PHP", "Modern PHP"]
+  },
+  {
+    "title": "Testing Symfony Applications Effectively",
+    "content": "Writing comprehensive tests ensures your Symfony application remains stable through changes. Functional tests verify complete request-response cycles including routing and controllers. Unit tests isolate business logic for faster execution. The WebTestCase provides powerful tools for simulating HTTP requests. Data fixtures and factories help create consistent test data.",
+    "tags": ["Testing", "PHPUnit"]
+  },
+  {
+    "title": "Security in Symfony Applications",
+    "content": "Symfony's security component offers robust protection against common vulnerabilities. Proper authentication setup prevents unauthorized access to sensitive resources. CSRF protection should be enabled for all forms. Password hashing uses modern algorithms like bcrypt or argon2i. Voters and security expressions provide fine-grained access control.",
+    "tags": ["Security", "Authentication"]
+  },
+  {
+    "title": "Optimizing Database Queries",
+    "content": "Database performance often becomes a bottleneck in web applications. Analyzing slow query logs reveals optimization opportunities. Adding appropriate indexes dramatically speeds up search operations. Denormalization sometimes makes sense for read-heavy workloads. Caching frequent queries reduces database load significantly.",
+    "tags": ["Basketball", "Cooking"]
+  },
+  {
+    "title": "Event-Driven Architecture in Symfony",
+    "content": "Symfony's event dispatcher enables building loosely coupled, extensible applications. Events allow different parts of your application to communicate without direct dependencies. Subscribers can react to events from multiple sources. This pattern is especially useful for implementing cross-cutting concerns like logging and auditing. Custom events help model domain-specific workflows.",
+    "tags": ["Events", "Architecture"]
+  },
+  {
+    "title": "Working with Symfony Forms",
+    "content": "Symfony Forms provide powerful abstraction for handling user input. Custom form types promote reusability across different forms. Data transformers convert between form data and domain objects seamlessly. Form events enable dynamic field modification based on user input. Proper validation ensures data integrity before persistence.",
+    "tags": ["Forms", "Validation"]
+  },
+  {
+    "title": "Implementing CQRS in PHP",
+    "content": "Command Query Responsibility Segregation separates read and write operations for better scalability. Commands represent intentions to change state while queries retrieve data. This pattern works well with event sourcing for complex domains. Messenger component in Symfony makes implementing CQRS straightforward. Separate read models optimize query performance.",
+    "tags": []
+  },
+  {
+    "title": "Docker for PHP Development",
+    "content": "Containerization ensures consistent development environments across teams. Docker Compose orchestrates multiple services like databases and caches. Volume mapping enables live code reloading during development. Multi-stage builds optimize production image sizes. Container orchestration simplifies deployment and scaling.",
+    "tags": ["Docker", "DevOps"]
+  },
+  {
+    "title": "Message Queues with Symfony Messenger",
+    "content": "Asynchronous processing improves application responsiveness by offloading heavy tasks. Symfony Messenger provides elegant abstraction for handling messages. Different transports like RabbitMQ or Redis offer various guarantees. Retry mechanisms handle temporary failures gracefully. Message handlers remain simple and testable.",
+    "tags": ["Messenger", "Async"]
+  },
+  {
+    "title": "GraphQL vs REST APIs",
+    "content": "GraphQL eliminates over-fetching by allowing clients to request exactly what they need. REST APIs remain simpler for basic CRUD operations. Type systems in GraphQL provide excellent developer experience with autocomplete. Caching strategies differ significantly between the two approaches. Both have valid use cases depending on requirements.",
+    "tags": ["GraphQL", "API"]
+  },
+  {
+    "title": "Microservices Architecture Patterns",
+    "content": "Breaking monoliths into microservices enables independent scaling and deployment. Service discovery helps services locate each other in dynamic environments. API gateways centralize authentication and routing logic. Circuit breakers prevent cascading failures. Distributed tracing helps debug issues across services.",
+    "tags": []
+  },
+  {
+    "title": "PHP Performance Tuning",
+    "content": "OPcache dramatically improves PHP performance by caching compiled bytecode. Profiling with tools like Blackfire reveals bottlenecks. Reducing function calls and optimizing loops yields measurable gains. Memory management awareness prevents leaks in long-running processes. Just-in-time compilation in PHP 8 speeds up CPU-intensive code.",
+    "tags": ["Performance", "Optimization"]
+  },
+  {
+    "title": "Clean Code Principles",
+    "content": "Readable code reduces maintenance burden and prevents bugs. Meaningful variable names make code self-documenting. Functions should do one thing and do it well. Comments explain why, not what the code does. Consistent formatting improves code comprehension across teams.",
+    "tags": ["Gardening", "Travel"]
+  },
+  {
+    "title": "Symfony Bundles Development",
+    "content": "Creating reusable bundles promotes code sharing across projects. Proper configuration management makes bundles flexible. Dependency injection configuration should use autoconfiguration when possible. Testing bundles requires careful isolation. Documentation helps adoption by other developers.",
+    "tags": ["Bundles", "Symfony"]
+  },
+  {
+    "title": "Redis Caching Strategies",
+    "content": "Redis provides fast in-memory caching for frequently accessed data. Cache invalidation remains one of the hardest problems in computing. TTL values should balance freshness and performance. Cache warming prevents cold start penalties. Redis supports advanced data structures beyond simple key-value pairs.",
+    "tags": ["Redis", "Caching"]
+  },
+  {
+    "title": "Database Migration Best Practices",
+    "content": "Doctrine migrations safely evolve database schema over time. Each migration should be reversible when possible. Testing migrations on production-like data prevents surprises. Version control for migrations enables collaboration. Deployment automation should include migration execution.",
+    "tags": ["Migrations", "Database"]
+  },
+  {
+    "title": "Building Admin Panels with EasyAdmin",
+    "content": "EasyAdmin rapidly generates administrative interfaces from entities. Customization options allow tailoring to specific needs. Custom actions extend default CRUD operations. Dashboard widgets provide overview of key metrics. Proper security configuration restricts access appropriately.",
+    "tags": []
+  },
+  {
+    "title": "Hexagonal Architecture in PHP",
+    "content": "Ports and adapters pattern separates business logic from infrastructure concerns. Domain layer remains framework-agnostic for better testability. Adapters translate between domain and external systems. This architecture enables easy framework migration. Clear boundaries improve code organization.",
+    "tags": ["Architecture", "DDD"]
+  },
+  {
+    "title": "Working with Elasticsearch",
+    "content": "Elasticsearch provides powerful full-text search capabilities. Proper index mapping affects search quality and performance. Analyzers customize how text is tokenized and searched. Aggregations enable complex analytics on search results. Bulk operations optimize indexing performance.",
+    "tags": ["Elasticsearch", "Search"]
+  },
+  {
+    "title": "OAuth2 Authentication Flow",
+    "content": "OAuth2 enables secure third-party authentication without sharing passwords. Authorization code flow works best for server-side applications. Access tokens should have short lifetimes for security. Refresh tokens allow obtaining new access tokens. PKCE extension protects mobile and single-page applications.",
+    "tags": ["OAuth", "Security"]
+  },
+  {
+    "title": "Service-Oriented Architecture",
+    "content": "SOA promotes building applications as collections of services. Service contracts define clear interfaces between components. Loose coupling enables independent evolution of services. Enterprise service bus can coordinate complex workflows. Governance ensures consistency across service landscape.",
+    "tags": ["Photography"]
+  },
+  {
+    "title": "Symfony Workflow Component",
+    "content": "Workflows model complex business processes with states and transitions. Guards prevent invalid state changes. Event listeners react to state transitions. Visualization helps understand process flow. Persistent storage tracks workflow state over time.",
+    "tags": ["Workflow", "Symfony"]
+  },
+  {
+    "title": "API Rate Limiting Strategies",
+    "content": "Rate limiting protects APIs from abuse and ensures fair usage. Token bucket algorithm provides flexible rate limiting. Headers communicate limits to API consumers. Different tiers can have different limits. Redis efficiently tracks rate limit counters.",
+    "tags": ["API", "Security"]
+  },
+  {
+    "title": "Composer Dependency Management",
+    "content": "Composer simplifies PHP package management and autoloading. Semantic versioning helps specify compatible package versions. Lock files ensure consistent dependencies across environments. Private repositories enable sharing proprietary packages. Scripts automate common development tasks.",
+    "tags": []
+  },
+  {
+    "title": "Database Sharding Techniques",
+    "content": "Sharding distributes data across multiple databases for horizontal scaling. Choosing the right shard key affects performance and data distribution. Cross-shard queries become more complex and slower. Consistent hashing minimizes data movement during resharding. Application logic must be shard-aware.",
+    "tags": ["Database", "Scaling"]
+  },
+  {
+    "title": "SOLID Principles in Practice",
+    "content": "Single Responsibility Principle keeps classes focused and maintainable. Open-Closed Principle enables extension without modification. Liskov Substitution ensures subclasses work as replacements. Interface Segregation prevents fat interfaces. Dependency Inversion promotes loose coupling.",
+    "tags": ["SOLID", "OOP"]
+  },
+  {
+    "title": "Implementing Feature Flags",
+    "content": "Feature flags enable deploying code without activating features. Gradual rollouts reduce risk of new features. A/B testing compares different implementations. Toggle configuration should be externalized. Cleanup of old flags prevents technical debt.",
+    "tags": ["Astronomy", "Music"]
+  },
+  {
+    "title": "Symfony Console Commands",
+    "content": "Custom console commands automate repetitive tasks. Symfony provides rich formatting and progress indicators. Arguments and options make commands flexible. Dependency injection works in commands like controllers. Testing commands ensures reliability.",
+    "tags": ["Console", "CLI"]
+  },
+  {
+    "title": "WebSocket Integration",
+    "content": "WebSockets enable real-time bidirectional communication. Mercure protocol simplifies publishing updates to subscribed clients. Symfony integration makes WebSocket handling straightforward. Authentication ensures secure connections. Heartbeat mechanisms detect disconnections.",
+    "tags": ["WebSocket", "Realtime"]
+  },
+  {
+    "title": "PHP Type System Evolution",
+    "content": "Strict typing reduces runtime errors significantly. Union types provide flexibility while maintaining safety. Nullable types explicitly handle absence of values. Return type declarations document function contracts. Mixed type serves as escape hatch when needed.",
+    "tags": ["PHP", "Types"]
+  },
+  {
+    "title": "Internationalization in Symfony",
+    "content": "Translation component manages multilingual content. Message domains organize translations by context. Pluralization rules vary across languages. Translation extraction finds untranslated strings. Fallback locales ensure graceful degradation.",
+    "tags": []
+  },
+  {
+    "title": "Database Connection Pooling",
+    "content": "Connection pools reduce overhead of establishing database connections. Pool size should balance resource usage and concurrency needs. Connection validation prevents using stale connections. Timeout configuration prevents indefinite waits. Monitoring pool statistics helps optimization.",
+    "tags": ["Database", "Performance"]
+  },
+  {
+    "title": "Git Workflow Best Practices",
+    "content": "Feature branches isolate work in progress. Pull requests enable code review before merging. Commit messages should explain why changes were made. Rebasing keeps history clean and linear. Semantic commit messages automate changelog generation.",
+    "tags": ["Git", "VCS"]
+  },
+  {
+    "title": "Logging and Monitoring",
+    "content": "Structured logging enables better log analysis. Log levels indicate message severity. Centralized logging aggregates logs from multiple sources. Metrics track application health and performance. Alerting notifies teams of issues promptly.",
+    "tags": ["Hiking", "Fitness"]
+  },
+  {
+    "title": "Value Objects in Domain Models",
+    "content": "Value objects represent concepts without identity. Immutability prevents unexpected state changes. Equality based on values rather than identity. Validation in constructor ensures consistency. Value objects encapsulate domain logic.",
+    "tags": ["DDD", "OOP"]
+  },
+  {
+    "title": "API Versioning Strategies",
+    "content": "URL versioning keeps APIs backward compatible. Header-based versioning offers cleaner URLs. Semantic versioning communicates change impact. Deprecation warnings prepare clients for changes. Documentation must clearly specify version differences.",
+    "tags": ["API", "Versioning"]
+  },
+  {
+    "title": "PHP 8 Attributes",
+    "content": "Attributes provide metadata directly in code. They replace docblock annotations with native syntax. Reflection API accesses attribute data at runtime. Custom attributes enable framework extensions. Attributes improve IDE support and type safety.",
+    "tags": ["PHP", "Attributes"]
+  },
+  {
+    "title": "Database Indexing Strategies",
+    "content": "Proper indexes dramatically speed up query execution. Composite indexes support multiple column searches. Index maintenance adds overhead to writes. Query plans reveal whether indexes are used. Too many indexes hurt performance.",
+    "tags": []
+  },
+  {
+    "title": "Symfony Flex and Recipes",
+    "content": "Flex automates bundle configuration during installation. Recipes provide sensible defaults for packages. Symfony packs group related dependencies. Flex aliases simplify package requirements. Custom recipes enable team conventions.",
+    "tags": ["Symfony", "Flex"]
+  },
+  {
+    "title": "API Authentication Methods",
+    "content": "JWT tokens enable stateless authentication. API keys suit simple authentication needs. OAuth2 handles delegated authorization. Basic auth works for internal APIs. Rotating secrets improves security posture.",
+    "tags": ["API", "Auth"]
+  },
+  {
+    "title": "Code Review Guidelines",
+    "content": "Constructive feedback improves code quality. Small pull requests review faster. Automated checks catch simple issues. Focus on logic rather than style. Acknowledge good solutions generously.",
+    "tags": ["Painting", "Movies"]
+  },
+  {
+    "title": "Data Transfer Objects",
+    "content": "DTOs decouple API contracts from domain models. Validation happens at the boundary. Serialization groups control exposed data. Transformers convert between representations. DTOs prevent over-fetching information.",
+    "tags": ["DTO", "Patterns"]
+  },
+  {
+    "title": "Background Job Processing",
+    "content": "Offloading work to background jobs improves response times. Job queues provide buffering during traffic spikes. Retry logic handles transient failures. Job prioritization ensures critical tasks complete first. Monitoring reveals processing bottlenecks.",
+    "tags": ["Jobs", "Async"]
+  },
+  {
+    "title": "SQL Query Optimization",
+    "content": "Analyzing execution plans identifies slow queries. Avoiding SELECT * reduces data transfer. Proper JOIN types affect performance significantly. Subqueries sometimes outperform JOINs. Database-specific features offer optimizations.",
+    "tags": ["SQL", "Performance"]
+  },
+  {
+    "title": "Symfony Serializer Component",
+    "content": "Serializer converts objects to various formats. Normalizers customize serialization logic. Context options control serialization behavior. Circular reference handling prevents infinite loops. Custom encoders support additional formats.",
+    "tags": []
+  },
+  {
+    "title": "Error Handling Best Practices",
+    "content": "Exceptions should represent exceptional situations. Custom exception hierarchy improves error handling. Logging errors aids debugging. User-friendly messages hide implementation details. Monitoring tracks error rates and patterns.",
+    "tags": ["Errors", "Exceptions"]
+  },
+  {
+    "title": "Building CLI Tools in PHP",
+    "content": "CLI applications automate operational tasks. Argument parsing libraries improve user experience. Progress bars show long-running operations status. Color output enhances readability. Signal handling enables graceful shutdown.",
+    "tags": ["CLI", "PHP"]
+  },
+  {
+    "title": "Repository Pattern Implementation",
+    "content": "Repositories abstract data access logic. Interface-based design enables testing with mocks. Specification pattern handles complex queries. Collection results provide consistent interfaces. Repository reduces coupling to ORM.",
+    "tags": ["Poetry", "Dance"]
+  },
+  {
+    "title": "API Gateway Patterns",
+    "content": "API gateways centralize cross-cutting concerns. Rate limiting protects backend services. Request routing directs traffic appropriately. Response aggregation reduces client requests. Gateway handles authentication uniformly.",
+    "tags": ["API", "Gateway"]
+  },
+  {
+    "title": "Symfony Validator Constraints",
+    "content": "Built-in constraints handle common validation scenarios. Custom constraints implement domain-specific rules. Groups enable context-dependent validation. Validation callbacks provide dynamic validation. Error messages support internationalization.",
+    "tags": ["Validation", "Symfony"]
+  },
+  {
+    "title": "Continuous Integration Setup",
+    "content": "Automated testing runs on every commit. Build artifacts deploy automatically. Static analysis catches quality issues. Dependency checking identifies vulnerabilities. Pipeline visualization shows build status.",
+    "tags": ["CI", "DevOps"]
+  },
+  {
+    "title": "Implementing Search Functionality",
+    "content": "Full-text search improves content discovery. Relevance scoring ranks results appropriately. Faceted search enables filtering. Autocomplete enhances user experience. Search analytics reveal user intent.",
+    "tags": []
+  },
+  {
+    "title": "Memory Management in PHP",
+    "content": "Understanding reference counting prevents memory leaks. Circular references need explicit cleanup. Memory limits protect against runaway processes. Profiling identifies high memory usage. Generators reduce memory footprint.",
+    "tags": ["PHP", "Memory"]
+  },
+  {
+    "title": "Domain Events Pattern",
+    "content": "Events represent significant domain occurrences. Event handlers react to domain changes. Event store enables event sourcing. Asynchronous handlers improve performance. Events decouple domain logic.",
+    "tags": ["DDD", "Events"]
+  },
+  {
+    "title": "API Documentation with OpenAPI",
+    "content": "OpenAPI specifications document API contracts. Interactive documentation aids developer onboarding. Code generation produces client libraries. Validation ensures implementation matches specification. Version control tracks API evolution.",
+    "tags": ["Cycling", "Weather"]
+  },
+  {
+    "title": "Symfony ParamConverter",
+    "content": "ParamConverter automatically resolves controller arguments. Entity conversion fetches from database. Custom converters handle specific types. Exception handling manages not found scenarios. Type hints trigger automatic conversion.",
+    "tags": ["Symfony", "Controllers"]
+  },
+  {
+    "title": "Database Transactions",
+    "content": "ACID properties ensure data consistency. Transaction isolation levels balance consistency and concurrency. Nested transactions require savepoints. Long transactions increase lock contention. Explicit transaction boundaries clarify atomicity requirements.",
+    "tags": ["Database", "ACID"]
+  },
+  {
+    "title": "Load Balancing Strategies",
+    "content": "Round-robin distributes requests evenly. Least connections directs to least busy servers. Session affinity maintains user state. Health checks remove failing servers. DNS load balancing provides geographic routing.",
+    "tags": ["Infrastructure", "Scaling"]
+  },
+  {
+    "title": "PHP Generators Deep Dive",
+    "content": "Generators enable memory-efficient iteration. Yield returns values without building arrays. Bidirectional communication uses send method. Generator delegation composes generators. Generators simplify async programming.",
+    "tags": []
+  },
+  {
+    "title": "Service Layer Pattern",
+    "content": "Service layer orchestrates business operations. Transaction boundaries belong in services. Services coordinate multiple repositories. Thin controllers delegate to services. Services remain framework-independent.",
+    "tags": ["Patterns", "Architecture"]
+  },
+  {
+    "title": "Symfony EventSubscriber vs Listener",
+    "content": "Subscribers declare their events internally. Listeners register externally in configuration. Subscribers better suit reusable components. Listeners offer more flexibility. Both enable event-driven architecture.",
+    "tags": ["Symfony", "Events"]
+  },
+  {
+    "title": "HTTP Caching Headers",
+    "content": "Cache-Control directives control caching behavior. ETags enable conditional requests. Last-Modified provides timestamp-based validation. Vary header handles content negotiation. Proper caching reduces server load.",
+    "tags": ["Sculpture", "Theater"]
+  },
+  {
+    "title": "Symfony Security Voters",
+    "content": "Voters implement complex authorization logic. Attribute-based access control decouples permissions. Voters receive subject and attributes. Hierarchical roles simplify permission management. Testing voters ensures security correctness.",
+    "tags": ["Security", "Symfony"]
+  },
+  {
+    "title": "Database Query Builders",
+    "content": "Query builders provide programmatic SQL generation. Type safety prevents SQL syntax errors. Dynamic query construction handles optional filters. Expression builders compose complex conditions. Fluent interface improves readability.",
+    "tags": ["Database", "Doctrine"]
+  },
+  {
+    "title": "Implementing Pagination",
+    "content": "Limit and offset enable basic pagination. Cursor-based pagination handles real-time data. Page numbering improves user experience. Total count queries affect performance. Pagination metadata aids API clients.",
+    "tags": []
+  },
+  {
+    "title": "Symfony HttpClient Component",
+    "content": "HttpClient provides modern HTTP request handling. Scoped clients share configuration. Retry mechanisms handle transient failures. Response streaming reduces memory usage. Mock responses simplify testing.",
+    "tags": ["HTTP", "Symfony"]
+  },
+  {
+    "title": "Factory Pattern in PHP",
+    "content": "Factories encapsulate object creation logic. Static factories replace complex constructors. Abstract factories create families of objects. Factory method delegates instantiation to subclasses. Factories improve testability.",
+    "tags": ["Patterns", "OOP"]
+  },
+  {
+    "title": "Content Negotiation",
+    "content": "Accept headers specify desired response format. Content-Type declares request body format. Negotiation enables multiple API representations. JSON and XML serve different clients. Custom formats support specific needs.",
+    "tags": ["Aviation", "Architecture"]
+  },
+  {
+    "title": "Symfony Mailer Component",
+    "content": "Mailer simplifies email sending. Transport abstraction supports various providers. Email objects use fluent interface. Inline images embed in messages. Testing mode captures sent emails.",
+    "tags": ["Email", "Symfony"]
+  },
+  {
+    "title": "Implementing Soft Deletes",
+    "content": "Soft deletes preserve data for recovery. Deleted flag excludes records from queries. Timestamp tracks deletion time. Doctrine filters apply soft delete logic. Permanent deletion requires explicit action.",
+    "tags": ["Database", "Patterns"]
+  },
+  {
+    "title": "API Rate Limiting Implementation",
+    "content": "Sliding window algorithm provides smooth limiting. Redis stores rate limit counters. Response headers communicate limit status. Different endpoints have different limits. Burst allowance handles traffic spikes.",
+    "tags": []
+  },
+  {
+    "title": "Symfony Configuration Component",
+    "content": "TreeBuilder defines configuration structure. Validation ensures correct configuration. Environment variables override config values. Configuration caching improves performance. Semantic configuration improves developer experience.",
+    "tags": ["Config", "Symfony"]
+  },
+  {
+    "title": "Building Resilient Systems",
+    "content": "Circuit breakers prevent cascading failures. Timeouts limit resource consumption. Retry logic handles transient errors. Bulkheads isolate failures. Graceful degradation maintains partial functionality.",
+    "tags": ["Resilience", "Architecture"]
+  },
+  {
+    "title": "Symfony Asset Mapper",
+    "content": "Asset Mapper eliminates Node.js requirement. Import maps enable native JavaScript modules. Versioning enables cache busting. Development mode provides hot reloading. Production builds optimize assets.",
+    "tags": ["Fishing", "Comics"]
+  },
+  {
+    "title": "Database Backup Strategies",
+    "content": "Regular backups protect against data loss. Point-in-time recovery enables precise restoration. Incremental backups reduce storage costs. Testing restores validates backup integrity. Offsite storage protects against disasters.",
+    "tags": ["Database", "Backup"]
+  },
+  {
+    "title": "Symfony Routing Advanced",
+    "content": "Route requirements validate parameter format. Route defaults provide fallback values. Route conditions enable complex matching. Scheme requirements enforce HTTPS. Host requirements support multi-tenant applications.",
+    "tags": ["Routing", "Symfony"]
+  },
+  {
+    "title": "Implementing Audit Logs",
+    "content": "Audit trails track data modifications. Timestamps record when changes occurred. User tracking identifies who made changes. Before and after values show what changed. Immutable logs prevent tampering.",
+    "tags": ["Audit", "Security"]
+  },
+  {
+    "title": "PHP Package Development",
+    "content": "Composer automates package distribution. Semantic versioning communicates compatibility. PSR standards ensure interoperability. Documentation aids adoption. Testing ensures quality.",
+    "tags": []
+  },
+  {
+    "title": "Symfony Expression Language",
+    "content": "Expressions enable dynamic configuration. Security expressions control access. Validators use expressions for complex rules. Custom functions extend expression capabilities. Expression caching improves performance.",
+    "tags": ["Symfony", "Expressions"]
+  },
+  {
+    "title": "Building Multi-Tenant Applications",
+    "content": "Tenant isolation ensures data separation. Database per tenant provides strongest isolation. Schema per tenant balances isolation and cost. Shared schema requires careful query filtering. Tenant context identifies current tenant.",
+    "tags": ["Multitenancy", "Architecture"]
+  },
+  {
+    "title": "Symfony Lock Component",
+    "content": "Locks prevent race conditions. Different stores suit different needs. Automatic release prevents deadlocks. Blocking acquisition waits for lock. Try locks return immediately.",
+    "tags": ["Mechanics", "Gaming"]
+  },
+  {
+    "title": "Implementing Full-Text Search",
+    "content": "Analyzers process text for searching. Stemming improves recall. Synonyms expand search coverage. Fuzzy matching handles typos. Highlighting shows matched terms.",
+    "tags": ["Search", "Elasticsearch"]
+  },
+  {
+    "title": "Symfony Notifier Component",
+    "content": "Notifier sends messages across channels. SMS integration reaches mobile users. Slack notifications alert teams. Email fallback ensures delivery. Urgency levels control notification routing.",
+    "tags": ["Notifications", "Symfony"]
+  },
+  {
+    "title": "API Idempotency",
+    "content": "Idempotent operations safely retry. Idempotency keys identify duplicate requests. Status storage tracks request processing. Deduplication prevents duplicate side effects. Client responsibilities include key generation.",
+    "tags": ["API", "Patterns"]
+  },
+  {
+    "title": "Symfony Rate Limiter",
+    "content": "Rate limiter protects resources from overuse. Token bucket provides flexible limiting. Fixed window offers simple implementation. Sliding window smooths traffic spikes. Different limiters suit different scenarios.",
+    "tags": []
+  },
+  {
+    "title": "Database Partitioning",
+    "content": "Partitioning improves query performance. Range partitioning suits time-series data. List partitioning groups discrete values. Hash partitioning distributes data evenly. Partition pruning skips irrelevant partitions.",
+    "tags": ["Database", "Scaling"]
+  },
+  {
+    "title": "Symfony Scheduler Component",
+    "content": "Scheduler runs tasks at specified times. Cron expressions define schedules. Task locking prevents concurrent execution. Failure handling ensures reliability. Manual triggering aids testing.",
+    "tags": ["Scheduler", "Symfony"]
+  },
+  {
+    "title": "Building Command Buses",
+    "content": "Command bus decouples command dispatch from handling. Middleware adds cross-cutting concerns. Handler resolution finds appropriate handlers. Command validation ensures correctness. Transaction middleware manages atomicity.",
+    "tags": ["CQRS", "Patterns"]
+  },
+  {
+    "title": "Symfony Turbo Integration",
+    "content": "Turbo streams enable live updates. Frame navigation updates page sections. Drive accelerates page loads. Form submissions handle gracefully. Server-side rendering maintains simplicity.",
+    "tags": ["Sailing", "Fashion"]
+  },
+  {
+    "title": "Implementing Webhooks",
+    "content": "Webhooks enable event-driven integration. Payload signing ensures authenticity. Retry logic handles delivery failures. Endpoint verification prevents spoofing. Idempotency prevents duplicate processing.",
+    "tags": ["Webhooks", "Integration"]
+  },
+  {
+    "title": "Symfony Live Components",
+    "content": "Live components create interactive interfaces. Automatic synchronization updates state. Ajax requests update components. Validation runs server-side. Browser events trigger component actions.",
+    "tags": ["Components", "Symfony"]
+  },
+  {
+    "title": "Database Connection Management",
+    "content": "Connection lifecycle affects performance. Persistent connections reduce overhead. Connection limits prevent resource exhaustion. Proper error handling closes connections. Health checks validate connection state.",
+    "tags": []
+  }
+]

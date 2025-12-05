@@ -1,0 +1,41 @@
+{{ form_start(form, {'attr': {'class': 'needs-validation', 'novalidate': true}}) }}
+    <div class="mb-3">
+        {{ form_label(form.email, null, {'label_attr': {'class': 'form-label'}}) }}
+        {{ form_widget(form.email, {'attr': {'class': 'form-control'}}) }}
+        {{ form_errors(form.email) }}
+    </div>
+    
+    {% if form.plainPassword is defined %}
+        <div class="mb-3">
+            {{ form_label(form.plainPassword, null, {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.plainPassword, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form.plainPassword) }}
+            <div class="form-text">Leave blank to keep current password</div>
+        </div>
+    {% endif %}
+    
+    <div class="mb-3">
+        {{ form_label(form.firstname, null, {'label_attr': {'class': 'form-label'}}) }}
+        {{ form_widget(form.firstname, {'attr': {'class': 'form-control'}}) }}
+        {{ form_errors(form.firstname) }}
+    </div>
+    
+    <div class="mb-3">
+        {{ form_label(form.lastname, null, {'label_attr': {'class': 'form-label'}}) }}
+        {{ form_widget(form.lastname, {'attr': {'class': 'form-control'}}) }}
+        {{ form_errors(form.lastname) }}
+    </div>
+    
+    {% if form.roles is defined %}
+        <div class="mb-3">
+            {{ form_label(form.roles, null, {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.roles, {'attr': {'class': 'form-select'}}) }}
+            {{ form_errors(form.roles) }}
+        </div>
+    {% endif %}
+    
+    <div class="d-flex justify-content-between">
+        <a href="{{ path('app_admin_user_index') }}" class="btn btn-outline-secondary">Cancel</a>
+        <button type="submit" class="btn admin-btn-primary text-white">{{ button_label|default('Save') }}</button>
+    </div>
+{{ form_end(form) }}

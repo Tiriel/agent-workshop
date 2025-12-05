@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Our posts{% endblock %}
+
+{% block body %}
+    <section class="w-75 m-auto">
+        <twig:PostList :posts="pager"></twig:PostList>
+    </section>
+    <div class="d-flex my-3 w-75 m-auto justify-content-center">
+        {{ pagerfanta(pager) }}
+    </div>
+{% endblock %}

@@ -1,0 +1,5 @@
+babdev_pagerfanta:
+    default_view: 'twitter_bootstrap5'
+    exceptions_strategy:
+        out_of_range_page: to_http_not_found
+        not_valid_current_page: to_http_not_found

@@ -1,0 +1,15 @@
+{% props
+    route,
+    label,
+    active = false
+%}
+<li class="nav-item">
+    <a 
+        class="nav-link {% if active == true or active == 'true' %}active{% endif %}" 
+        href="{{ path(route) }}"
+        {% if active == true or active == 'true' %}aria-current="page"{% endif %}
+    >
+        {{ label }}
+    </a>
+</li>
+

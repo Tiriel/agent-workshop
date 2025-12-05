@@ -963,7 +963,7 @@ namespace Symfony\Component\DependencyInjection\Loader\Configurator;
  *         enabled?: bool, // Default: false
  *     },
  *     html?: bool|array{
- *         enabled?: bool, // Default: true
+ *         enabled?: bool, // Default: false
  *     },
  *     markdown?: bool|array{
  *         enabled?: bool, // Default: false
@@ -1466,8 +1466,8 @@ namespace Symfony\Component\DependencyInjection\Loader\Configurator;
  * }
  * @psalm-type MercureConfig = array{
  *     hubs?: array<string, array{ // Default: []
- *         url?: scalar|null, // URL of the hub's publish endpoint
- *         public_url?: scalar|null, // URL of the hub's public endpoint // Default: null
+ *         url?: scalar|null, // URL of the hub's publish endpoint // Default: null
+ *         public_url?: scalar|null, // URL of the hub's public endpoint
  *         jwt?: string|array{ // JSON Web Token configuration.
  *             value?: scalar|null, // JSON Web Token to use to publish to this hub.
  *             provider?: scalar|null, // The ID of a service to call to provide the JSON Web Token.
@@ -1540,6 +1540,369 @@ namespace Symfony\Component\DependencyInjection\Loader\Configurator;
  *         default_namespace?: scalar|null, // Default namespace where stories will be created by maker. // Default: "Story"
  *     },
  * }
+ * @psalm-type BabdevPagerfantaConfig = array{
+ *     default_view?: scalar|null, // Default: "default"
+ *     default_twig_template?: scalar|null, // Default: "@BabDevPagerfanta/default.html.twig"
+ *     exceptions_strategy?: array{
+ *         out_of_range_page?: "to_http_not_found"|"custom", // Default: "to_http_not_found"
+ *         not_valid_current_page?: "to_http_not_found"|"custom", // Default: "to_http_not_found"
+ *     },
+ * }
+ * @psalm-type AiConfig = array{
+ *     platform?: array{
+ *         albert?: array{
+ *             api_key: string,
+ *             base_url: string,
+ *             http_client?: string, // Service ID of the HTTP client to use // Default: "http_client"
+ *         },
+ *         anthropic?: array{
+ *             api_key: string,
+ *             version?: string, // Default: null
+ *             http_client?: string, // Service ID of the HTTP client to use // Default: "http_client"
+ *         },
+ *         azure?: array<string, array{ // Default: []
+ *             api_key: string,
+ *             base_url: string,
+ *             deployment: string,
+ *             api_version?: string, // The used API version
+ *             http_client?: string, // Service ID of the HTTP client to use // Default: "http_client"
+ *         }>,
+ *         cache?: array<string, array{ // Default: []
+ *             platform: string,
+ *             service: string, // The cache service id as defined under the "cache" configuration key
+ *             cache_key?: string, // Key used to store platform results, if not set, the current platform name will be used, the "prompt_cache_key" can be set during platform call to override this value
+ *         }>,
+ *         cartesia?: array{
+ *             api_key: string,
+ *             version: string,
+ *             http_client?: string, // Service ID of the HTTP client to use // Default: "http_client"
+ *         },
+ *         elevenlabs?: array{
+ *             api_key: string,
+ *             host?: string, // Default: "https://api.elevenlabs.io/v1"
+ *             http_client?: string, // Service ID of the HTTP client to use // Default: "http_client"
+ *         },
+ *         gemini?: array{
+ *             api_key: string,
+ *             http_client?: string, // Service ID of the HTTP client to use // Default: "http_client"
+ *         },
+ *         huggingface?: array{
+ *             api_key: string,
+ *             provider?: string, // Default: "hf-inference"
+ *             http_client?: string, // Service ID of the HTTP client to use // Default: "http_client"
+ *         },
+ *         vertexai?: array{
+ *             location: string,
+ *             project_id: string,
+ *         },
+ *         openai?: array{
+ *             api_key: string,
+ *             region?: scalar|null, // The region for OpenAI API (EU, US, or null for default) // Default: null
+ *             http_client?: string, // Service ID of the HTTP client to use // Default: "http_client"
+ *         },
+ *         mistral?: array{
+ *             api_key: string,
+ *             http_client?: string, // Service ID of the HTTP client to use // Default: "http_client"
+ *         },
+ *         openrouter?: array{
+ *             api_key: string,
+ *             http_client?: string, // Service ID of the HTTP client to use // Default: "http_client"
+ *         },
+ *         lmstudio?: array{
+ *             host_url?: string, // Default: "http://127.0.0.1:1234"
+ *             http_client?: string, // Service ID of the HTTP client to use // Default: "http_client"
+ *         },
+ *         ollama?: array{
+ *             host_url?: string, // Default: "http://127.0.0.1:11434"
+ *             http_client?: string, // Service ID of the HTTP client to use // Default: "http_client"
+ *             api_catalog?: bool, // If set, the Ollama API will be used to build the catalog and retrieve models information, using this option leads to additional HTTP calls
+ *         },
+ *         cerebras?: array{
+ *             api_key: string,
+ *             http_client?: string, // Service ID of the HTTP client to use // Default: "http_client"
+ *         },
+ *         voyage?: array{
+ *             api_key: string,
+ *             http_client?: string, // Service ID of the HTTP client to use // Default: "http_client"
+ *         },
+ *         perplexity?: array{
+ *             api_key: string,
+ *             http_client?: string, // Service ID of the HTTP client to use // Default: "http_client"
+ *         },
+ *         dockermodelrunner?: array{
+ *             host_url?: string, // Default: "http://127.0.0.1:12434"
+ *             http_client?: string, // Service ID of the HTTP client to use // Default: "http_client"
+ *         },
+ *         scaleway?: array{
+ *             api_key: scalar|null,
+ *             http_client?: string, // Service ID of the HTTP client to use // Default: "http_client"
+ *         },
+ *     },
+ *     model?: array<string, array<string, array{ // Default: []
+ *             class?: string, // The fully qualified class name of the model (must extend Symfony\AI\Platform\Model) // Default: "Symfony\\AI\\Platform\\Model"
+ *             capabilities?: list<input-audio|input-image|input-messages|input-multiple|input-pdf|input-text|input-multimodal|output-audio|output-image|output-streaming|output-structured|output-text|tool-calling|text-to-speech|speech-to-text|embeddings|thinking>,
+ *         }>>,
+ *     agent?: array<string, array{ // Default: []
+ *         platform?: string, // Service name of platform // Default: "Symfony\\AI\\Platform\\PlatformInterface"
+ *         track_token_usage?: bool, // Enable tracking of token usage for the agent // Default: true
+ *         model?: mixed,
+ *         memory?: mixed, // Memory configuration: string for static memory, or array with "service" key for service reference // Default: null
+ *         prompt?: string|array{ // The system prompt configuration
+ *             text?: string, // The system prompt text
+ *             file?: string, // Path to file containing the system prompt
+ *             include_tools?: bool, // Include tool definitions at the end of the system prompt // Default: false
+ *             enable_translation?: bool, // Enable translation for the system prompt // Default: false
+ *             translation_domain?: string, // The translation domain for the system prompt // Default: null
+ *         },
+ *         tools?: bool|array{
+ *             enabled?: bool, // Default: true
+ *             services?: list<string|array{ // Default: []
+ *                 service?: string,
+ *                 agent?: string,
+ *                 name?: string,
+ *                 description?: string,
+ *                 method?: string,
+ *             }>,
+ *         },
+ *         keep_tool_messages?: bool, // Keep tool messages in the conversation history // Default: false
+ *         include_sources?: bool, // Include sources exposed by tools as part of the tool result metadata // Default: false
+ *         fault_tolerant_toolbox?: bool, // Continue the agent run even if a tool call fails // Default: true
+ *     }>,
+ *     multi_agent?: array<string, array{ // Default: []
+ *         orchestrator: string, // Service ID of the orchestrator agent
+ *         handoffs: array<string, list<scalar|null>>,
+ *         fallback: string, // Service ID of the fallback agent for unmatched requests
+ *     }>,
+ *     store?: array{
+ *         azure_search?: array<string, array{ // Default: []
+ *             endpoint: string,
+ *             api_key: string,
+ *             index_name: string,
+ *             api_version: string,
+ *             vector_field?: string,
+ *         }>,
+ *         cache?: array<string, array{ // Default: []
+ *             service?: string, // Default: "cache.app"
+ *             cache_key?: string, // The name of the store will be used if the key is not set
+ *             strategy?: string,
+ *         }>,
+ *         chroma_db?: array<string, array{ // Default: []
+ *             client?: string, // Default: "Codewithkyrian\\ChromaDB\\Client"
+ *             collection: string,
+ *         }>,
+ *         clickhouse?: array<string, array{ // Default: []
+ *             dsn?: string,
+ *             http_client?: string,
+ *             database: string,
+ *             table: string,
+ *         }>,
+ *         cloudflare?: array<string, array{ // Default: []
+ *             account_id?: string,
+ *             api_key?: string,
+ *             index_name?: string,
+ *             dimensions?: int, // Default: 1536
+ *             metric?: string, // Default: "cosine"
+ *             endpoint?: string,
+ *         }>,
+ *         manticore?: array<string, array{ // Default: []
+ *             endpoint?: string,
+ *             table?: string,
+ *             field?: string, // Default: "_vectors"
+ *             type?: string, // Default: "hnsw"
+ *             similarity?: string, // Default: "cosine"
+ *             dimensions?: int, // Default: 1536
+ *             quantization?: string,
+ *         }>,
+ *         mariadb?: array<string, array{ // Default: []
+ *             connection?: string,
+ *             table_name?: string,
+ *             index_name?: string,
+ *             vector_field_name?: string,
+ *             setup_options?: array{
+ *                 dimensions?: int,
+ *             },
+ *         }>,
+ *         meilisearch?: array<string, array{ // Default: []
+ *             endpoint?: string,
+ *             api_key?: string,
+ *             index_name?: string,
+ *             embedder?: string, // Default: "default"
+ *             vector_field?: string, // Default: "_vectors"
+ *             dimensions?: int, // Default: 1536
+ *             semantic_ratio?: float, // The ratio between semantic (vector) and full-text search (0.0 to 1.0). Default: 1.0 (100% semantic) // Default: 1.0
+ *         }>,
+ *         memory?: array<string, array{ // Default: []
+ *             strategy?: string,
+ *         }>,
+ *         milvus?: array<string, array{ // Default: []
+ *             endpoint?: string,
+ *             api_key: string,
+ *             database?: string,
+ *             collection: string,
+ *             vector_field?: string, // Default: "_vectors"
+ *             dimensions?: int, // Default: 1536
+ *             metric_type?: string, // Default: "COSINE"
+ *         }>,
+ *         mongodb?: array<string, array{ // Default: []
+ *             client?: string, // Default: "MongoDB\\Client"
+ *             database: string,
+ *             collection?: string,
+ *             index_name: string,
+ *             vector_field?: string, // Default: "vector"
+ *             bulk_write?: bool, // Default: false
+ *         }>,
+ *         neo4j?: array<string, array{ // Default: []
+ *             endpoint?: string,
+ *             username?: string,
+ *             password?: string,
+ *             database?: string,
+ *             vector_index_name?: string,
+ *             node_name?: string,
+ *             vector_field?: string, // Default: "embeddings"
+ *             dimensions?: int, // Default: 1536
+ *             distance?: string, // Default: "cosine"
+ *             quantization?: bool,
+ *         }>,
+ *         pinecone?: array<string, array{ // Default: []
+ *             client?: string, // Default: "Probots\\Pinecone\\Client"
+ *             namespace?: string,
+ *             filter?: list<scalar|null>,
+ *             top_k?: int,
+ *         }>,
+ *         postgres?: array<string, array{ // Default: []
+ *             dsn?: string,
+ *             username?: string,
+ *             password?: string,
+ *             table_name?: string,
+ *             vector_field?: string, // Default: "embedding"
+ *             distance?: cosine|inner_product|l1|l2, // Distance metric to use for vector similarity search // Default: "l2"
+ *             dbal_connection?: string,
+ *         }>,
+ *         qdrant?: array<string, array{ // Default: []
+ *             endpoint?: string,
+ *             api_key?: string,
+ *             collection_name?: string,
+ *             dimensions?: int, // Default: 1536
+ *             distance?: string, // Default: "Cosine"
+ *             async?: bool,
+ *         }>,
+ *         redis?: array<string, array{ // Default: []
+ *             connection_parameters?: mixed, // see https://github.com/phpredis/phpredis?tab=readme-ov-file#example-1
+ *             client?: string, // a service id of a Redis client
+ *             index_name?: string,
+ *             key_prefix?: string, // Default: "vector:"
+ *             distance?: \Symfony\AI\Store\Bridge\Redis\Distance::Cosine|\Symfony\AI\Store\Bridge\Redis\Distance::L2|\Symfony\AI\Store\Bridge\Redis\Distance::Ip, // Distance metric to use for vector similarity search // Default: "COSINE"
+ *         }>,
+ *         supabase?: array<string, array{ // Default: []
+ *             http_client?: string, // Service ID of the HTTP client to use // Default: "http_client"
+ *             url: string,
+ *             api_key: string,
+ *             table?: string,
+ *             vector_field?: string, // Default: "embedding"
+ *             vector_dimension?: int, // Default: 1536
+ *             function_name?: string, // Default: "match_documents"
+ *         }>,
+ *         surrealdb?: array<string, array{ // Default: []
+ *             endpoint?: string,
+ *             username?: string,
+ *             password?: string,
+ *             namespace?: string,
+ *             database?: string,
+ *             table?: string,
+ *             vector_field?: string, // Default: "_vectors"
+ *             strategy?: string, // Default: "cosine"
+ *             dimensions?: int, // Default: 1536
+ *             namespaced_user?: bool,
+ *         }>,
+ *         typesense?: array<string, array{ // Default: []
+ *             endpoint?: string,
+ *             api_key: string,
+ *             collection?: string,
+ *             vector_field?: string, // Default: "_vectors"
+ *             dimensions?: int, // Default: 1536
+ *         }>,
+ *         weaviate?: array<string, array{ // Default: []
+ *             endpoint?: string,
+ *             api_key: string,
+ *             collection?: string,
+ *         }>,
+ *     },
+ *     message_store?: array{
+ *         cache?: array<string, array{ // Default: []
+ *             service?: string, // Default: "cache.app"
+ *             key?: string, // The name of the message store will be used if the key is not set
+ *             ttl?: int,
+ *         }>,
+ *         cloudflare?: array<string, array{ // Default: []
+ *             account_id?: string,
+ *             api_key?: string,
+ *             namespace?: string,
+ *             endpoint_url?: string, // If the version of the Cloudflare API is updated, use this key to support it.
+ *         }>,
+ *         doctrine?: array{
+ *             dbal?: array<string, array{ // Default: []
+ *                 connection?: string,
+ *                 table_name?: string, // The name of the message store will be used if the table_name is not set
+ *             }>,
+ *         },
+ *         meilisearch?: array<string, array{ // Default: []
+ *             endpoint?: string,
+ *             api_key?: string,
+ *             index_name?: string,
+ *         }>,
+ *         memory?: array<string, array{ // Default: []
+ *             identifier?: string,
+ *         }>,
+ *         mongodb?: array<string, array{ // Default: []
+ *             client?: string, // Default: "MongoDB\\Client"
+ *             database: string,
+ *             collection: string,
+ *         }>,
+ *         pogocache?: array<string, array{ // Default: []
+ *             endpoint?: string,
+ *             password?: string,
+ *             key?: string,
+ *         }>,
+ *         redis?: array<string, array{ // Default: []
+ *             connection_parameters?: mixed, // see https://github.com/phpredis/phpredis?tab=readme-ov-file#example-1
+ *             client?: string, // a service id of a Redis client
+ *             endpoint?: string,
+ *             index_name?: string,
+ *         }>,
+ *         session?: array<string, array{ // Default: []
+ *             identifier?: string,
+ *         }>,
+ *         surrealdb?: array<string, array{ // Default: []
+ *             endpoint?: string,
+ *             username?: string,
+ *             password?: string,
+ *             namespace?: string,
+ *             database?: string,
+ *             table?: string,
+ *             namespaced_user?: bool, // Using a namespaced user is a good practice to prevent any undesired access to a specific table, see https://surrealdb.com/docs/surrealdb/reference-guide/security-best-practices
+ *         }>,
+ *     },
+ *     chat?: array<string, array{ // Default: []
+ *         agent?: string,
+ *         message_store?: string,
+ *     }>,
+ *     vectorizer?: array<string, array{ // Default: []
+ *         platform?: string, // Service name of platform // Default: "Symfony\\AI\\Platform\\PlatformInterface"
+ *         model?: mixed,
+ *     }>,
+ *     indexer?: array<string, array{ // Default: []
+ *         loader: string, // Service name of loader
+ *         source?: mixed, // Source identifier (file path, URL, etc.) or array of sources // Default: null
+ *         transformers?: list<scalar|null>,
+ *         filters?: list<scalar|null>,
+ *         vectorizer?: scalar|null, // Service name of vectorizer // Default: "Symfony\\AI\\Store\\Document\\VectorizerInterface"
+ *         store?: string, // Service name of store // Default: "Symfony\\AI\\Store\\StoreInterface"
+ *     }>,
+ *     retriever?: array<string, array{ // Default: []
+ *         vectorizer?: scalar|null, // Service name of vectorizer // Default: "Symfony\\AI\\Store\\Document\\VectorizerInterface"
+ *         store?: string, // Service name of store // Default: "Symfony\\AI\\Store\\StoreInterface"
+ *     }>,
+ * }
  * @psalm-type ConfigType = array{
  *     imports?: ImportsConfig,
  *     parameters?: ParametersConfig,
@@ -1556,6 +1919,8 @@ namespace Symfony\Component\DependencyInjection\Loader\Configurator;
  *     mercure?: MercureConfig,
  *     twig_component?: TwigComponentConfig,
  *     live_component?: LiveComponentConfig,
+ *     babdev_pagerfanta?: BabdevPagerfantaConfig,
+ *     ai?: AiConfig,
  *     "when@dev"?: array{
  *         imports?: ImportsConfig,
  *         parameters?: ParametersConfig,
@@ -1576,6 +1941,8 @@ namespace Symfony\Component\DependencyInjection\Loader\Configurator;
  *         twig_component?: TwigComponentConfig,
  *         live_component?: LiveComponentConfig,
  *         zenstruck_foundry?: ZenstruckFoundryConfig,
+ *         babdev_pagerfanta?: BabdevPagerfantaConfig,
+ *         ai?: AiConfig,
  *     },
  *     "when@prod"?: array{
  *         imports?: ImportsConfig,
@@ -1593,6 +1960,8 @@ namespace Symfony\Component\DependencyInjection\Loader\Configurator;
  *         mercure?: MercureConfig,
  *         twig_component?: TwigComponentConfig,
  *         live_component?: LiveComponentConfig,
+ *         babdev_pagerfanta?: BabdevPagerfantaConfig,
+ *         ai?: AiConfig,
  *     },
  *     "when@test"?: array{
  *         imports?: ImportsConfig,
@@ -1612,6 +1981,8 @@ namespace Symfony\Component\DependencyInjection\Loader\Configurator;
  *         twig_component?: TwigComponentConfig,
  *         live_component?: LiveComponentConfig,
  *         zenstruck_foundry?: ZenstruckFoundryConfig,
+ *         babdev_pagerfanta?: BabdevPagerfantaConfig,
+ *         ai?: AiConfig,
  *     },
  *     ...<string, ExtensionType|array{ // extra keys must follow the when@%env% pattern or match an extension alias
  *         imports?: ImportsConfig,

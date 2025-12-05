@@ -1,0 +1,36 @@
+{{ form_start(form, {'attr': {'class': 'needs-validation', 'novalidate': true}}) }}
+    <div class="mb-3">
+        {{ form_label(form.title, null, {'label_attr': {'class': 'form-label'}}) }}
+        {{ form_widget(form.title, {'attr': {'class': 'form-control'}}) }}
+        {{ form_errors(form.title) }}
+    </div>
+    
+    <div class="mb-3">
+        {{ form_label(form.content, null, {'label_attr': {'class': 'form-label'}}) }}
+        {{ form_widget(form.content, {'attr': {'class': 'form-control', 'rows': 10}}) }}
+        {{ form_errors(form.content) }}
+    </div>
+    
+    <div class="mb-3">
+        {{ form_label(form.author, null, {'label_attr': {'class': 'form-label'}}) }}
+        {{ form_widget(form.author, {'attr': {'class': 'form-select'}}) }}
+        {{ form_errors(form.author) }}
+    </div>
+    
+    <div class="mb-3">
+        {{ form_label(form.status, null, {'label_attr': {'class': 'form-label'}}) }}
+        {{ form_widget(form.status, {'attr': {'class': 'form-select'}}) }}
+        {{ form_errors(form.status) }}
+    </div>
+    
+    <div class="mb-3">
+        {{ form_label(form.tags, null, {'label_attr': {'class': 'form-label'}}) }}
+        {{ form_widget(form.tags, {'attr': {'class': 'form-select'}}) }}
+        {{ form_errors(form.tags) }}
+    </div>
+    
+    <div class="d-flex justify-content-between">
+        <a href="{{ path('app_admin_post_index') }}" class="btn btn-outline-secondary">Cancel</a>
+        <button type="submit" class="btn admin-btn-primary text-white">{{ button_label|default('Save') }}</button>
+    </div>
+{{ form_end(form) }}

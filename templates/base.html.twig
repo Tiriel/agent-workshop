@@ -10,10 +10,20 @@
         {% block javascripts %}
             {% block importmap %}{{ importmap('app') }}{% endblock %}
         {% endblock %}
+        {% block turbo_meta %}
+        {% endblock %}
     </head>
     <body>
-    <main class="container mt-5">
+    <header>
+        <twig:Navbar currentRoute="{{ app.request.attributes.get('_route') }}" />
+    </header>
+    <main class="container my-5" style="padding-top: 80px;">
+        <turbo-frame id="main-content">
         {% block body %}{% endblock %}
+        </turbo-frame>
     </main>
+    <footer>
+        <!-- -->
+    </footer>
     </body>
 </html>

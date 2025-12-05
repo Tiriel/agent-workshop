@@ -1,0 +1,4 @@
+<form method="post" action="{{ path('app_admin_user_delete', {'id': user.id}) }}" onsubmit="return confirm('Are you sure you want to delete this user? This action cannot be undone.');" class="d-inline">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ user.id) }}">
+    <button type="submit" class="btn btn-outline-danger">Delete</button>
+</form>

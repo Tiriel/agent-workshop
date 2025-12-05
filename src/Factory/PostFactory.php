@@ -4,6 +4,7 @@ namespace App\Factory;
 
 use App\Entity\Post;
 use App\Enum\PostStatus;
+use Symfony\Component\Finder\Finder;
 use Zenstruck\Foundry\Persistence\PersistentObjectFactory;
 
 /**
@@ -11,6 +12,9 @@ use Zenstruck\Foundry\Persistence\PersistentObjectFactory;
  */
 final class PostFactory extends PersistentObjectFactory
 {
+    private array $fixtures = [];
+    private array $current = [];
+
     /**
      * @see https://symfony.com/bundles/ZenstruckFoundryBundle/current/index.html#factories-as-services
      *
@@ -18,6 +22,9 @@ final class PostFactory extends PersistentObjectFactory
      */
     public function __construct()
     {
+        $finder = new Finder()->in(__DIR__.'/fixtures')->files()->name('*_fr.json');
+        $jsonFixtures = \file_get_contents(key(\iterator_to_array($finder)));
+        $this->fixtures = \json_decode($jsonFixtures, true);
     }
 
     #[\Override]
@@ -36,11 +43,8 @@ final class PostFactory extends PersistentObjectFactory
     {
         return [
             'author' => UserFactory::randomOrCreate(),
-            'content' => self::faker()->realText(self::faker()->numberBetween(200, 800)),
-            'createdAt' => \DateTimeImmutable::createFromMutable(self::faker()->dateTime(max: 'now')),
+            'createdAt' => \DateTimeImmutable::createFromMutable(self::faker()->dateTimeBetween(startDate: '01-01-2022', endDate: 'now')),
             'status' => self::faker()->randomElement(PostStatus::cases()),
-            'title' => self::faker()->text(255),
-            'tags' => TagFactory::randomRangeOrCreate(0, 5),
         ];
     }
 
@@ -52,12 +56,21 @@ final class PostFactory extends PersistentObjectFactory
     {
         return $this
             ->afterInstantiate(function(Post $post) {
+                $this->current = self::faker()->randomElement($this->fixtures);
+                $post
+                    ->setTitle($this->current['title'])
+                    ->setContent($this->current['content'])
+                ;
+
                 if (PostStatus::PUBLISHED === $post->getStatus()) {
                     $post->setPublishedAt(
                         \DateTimeImmutable::createFromMutable(
                             self::faker()->dateTimeBetween($post->getCreatedAt()->format('Y-m-d'), 'now')
                         )
                     );
+                }
+                foreach ($this->current['tags'] as $tag) {
+                    $post->addTag(TagFactory::findOrCreate(['name' => $tag]));
                 }
             })
         ;

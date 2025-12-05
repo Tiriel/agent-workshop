@@ -2,6 +2,10 @@
 
 {% block title %}Log in!{% endblock %}
 
+{% block turbo_meta %}
+    <meta name="turbo-visit-control" content="reload">
+{% endblock %}
+
 {% block body %}
     <form method="post" class="w-25 m-auto">
         {% if error %}
