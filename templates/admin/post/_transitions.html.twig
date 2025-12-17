@@ -1,0 +1,6 @@
+{% for transition in workflow_transitions(entity) %}
+<form method="post" action="{{ path("app_admin_#{shortName}_transition", {'id': entity.id, 'transitionName': transition.name}) }}" class="d-inline">
+    <input type="hidden" name="_token" value="{{ csrf_token('transition_'~ transition.name ~ entity.id) }}">
+    <button type="submit" class="btn btn-warning">{{ transition.name|capitalize }}</button>
+</form>
+{% endfor %}

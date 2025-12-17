@@ -20,6 +20,9 @@
                     <a href="{{ path("app_admin_#{shortName}_index") }}" class="btn btn-outline-secondary">Back to list</a>
                     <div>
                         <a href="{{ path("app_admin_#{shortName}_edit", {'id': entity.id}) }}" class="btn admin-btn-primary text-white me-2">Edit</a>
+                        {% if entity is instanceof('App\\Entity\\Post') %}
+                        {{ include('admin/post/_transitions.html.twig') }}
+                        {% endif %}
                         {{ include('admin/crud/_delete_form.html.twig') }}
                     </div>
                 </div>

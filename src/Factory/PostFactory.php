@@ -62,7 +62,7 @@ final class PostFactory extends PersistentObjectFactory
                     ->setContent($this->current['content'])
                 ;
 
-                if (PostStatus::PUBLISHED === $post->getStatus()) {
+                if (PostStatus::Published === $post->getStatus()) {
                     $post->setPublishedAt(
                         \DateTimeImmutable::createFromMutable(
                             self::faker()->dateTimeBetween($post->getCreatedAt()->format('Y-m-d'), 'now')

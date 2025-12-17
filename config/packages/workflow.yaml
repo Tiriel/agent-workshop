@@ -1,2 +1,22 @@
 framework:
-    workflows: null
+    workflows:
+        post_lifecycle:
+            type: state_machine
+            marking_store:
+                type: 'method'
+                property: 'status'
+            supports:
+                - 'App\Entity\Post'
+            initial_marking: !php/enum App\Enum\PostStatus::Draft
+            places: !php/enum App\Enum\PostStatus
+            transitions:
+                publish:
+                    from: !php/enum App\Enum\PostStatus::Draft
+                    to: !php/enum App\Enum\PostStatus::Published
+                archive:
+                    from: !php/enum App\Enum\PostStatus::Published
+                    to: !php/enum App\Enum\PostStatus::Archived
+                abandon:
+                    from: !php/enum App\Enum\PostStatus::Draft
+                    to: !php/enum App\Enum\PostStatus::Archived
+                    

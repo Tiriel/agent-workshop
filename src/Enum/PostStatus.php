@@ -4,16 +4,16 @@ namespace App\Enum;
 
 enum PostStatus: string
 {
-    case DRAFT = 'draft';
-    case PUBLISHED = 'published';
-    case ARCHIVED = 'archived';
+    case Draft = 'draft';
+    case Published = 'published';
+    case Archived = 'archived';
 
     public function getLabel(): string
     {
         return match ($this) {
-            self::DRAFT => 'Draft',
-            self::PUBLISHED => 'Published',
-            self::ARCHIVED => 'Archived',
+            self::Draft => 'Draft',
+            self::Published => 'Published',
+            self::Archived => 'Archived',
         };
     }
 }
