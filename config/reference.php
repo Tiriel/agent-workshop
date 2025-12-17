@@ -474,7 +474,7 @@ namespace Symfony\Component\DependencyInjection\Loader\Configurator;
  *         max_host_connections?: int, // The maximum number of connections to a single host.
  *         default_options?: array{
  *             headers?: array<string, mixed>,
- *             vars?: list<mixed>,
+ *             vars?: array<string, mixed>,
  *             max_redirects?: int, // The maximum number of redirects to follow.
  *             http_version?: scalar|null, // The default HTTP version, typically 1.1 or 2.0, leave to null for the best version.
  *             resolve?: array<string, scalar|null>,
@@ -497,7 +497,7 @@ namespace Symfony\Component\DependencyInjection\Loader\Configurator;
  *                 md5?: mixed,
  *             },
  *             crypto_method?: scalar|null, // The minimum version of TLS to accept; must be one of STREAM_CRYPTO_METHOD_TLSv*_CLIENT constants.
- *             extra?: list<mixed>,
+ *             extra?: array<string, mixed>,
  *             rate_limiter?: scalar|null, // Rate limiter name to use for throttling requests. // Default: null
  *             caching?: bool|array{ // Caching configuration.
  *                 enabled?: bool, // Default: false
@@ -550,7 +550,7 @@ namespace Symfony\Component\DependencyInjection\Loader\Configurator;
  *                 md5?: mixed,
  *             },
  *             crypto_method?: scalar|null, // The minimum version of TLS to accept; must be one of STREAM_CRYPTO_METHOD_TLSv*_CLIENT constants.
- *             extra?: list<mixed>,
+ *             extra?: array<string, mixed>,
  *             rate_limiter?: scalar|null, // Rate limiter name to use for throttling requests. // Default: null
  *             caching?: bool|array{ // Caching configuration.
  *                 enabled?: bool, // Default: false
@@ -1466,8 +1466,8 @@ namespace Symfony\Component\DependencyInjection\Loader\Configurator;
  * }
  * @psalm-type MercureConfig = array{
  *     hubs?: array<string, array{ // Default: []
- *         url?: scalar|null, // URL of the hub's publish endpoint
- *         public_url?: scalar|null, // URL of the hub's public endpoint // Default: null
+ *         url?: scalar|null, // URL of the hub's publish endpoint // Default: null
+ *         public_url?: scalar|null, // URL of the hub's public endpoint
  *         jwt?: string|array{ // JSON Web Token configuration.
  *             value?: scalar|null, // JSON Web Token to use to publish to this hub.
  *             provider?: scalar|null, // The ID of a service to call to provide the JSON Web Token.
@@ -1577,15 +1577,31 @@ namespace Symfony\Component\DependencyInjection\Loader\Configurator;
  *             version: string,
  *             http_client?: string, // Service ID of the HTTP client to use // Default: "http_client"
  *         },
+ *         decart?: array{
+ *             api_key: string,
+ *             host?: string, // Default: "https://api.decart.ai/v1"
+ *             http_client?: string, // Service ID of the HTTP client to use // Default: "http_client"
+ *         },
  *         elevenlabs?: array{
  *             api_key: string,
  *             host?: string, // Default: "https://api.elevenlabs.io/v1"
  *             http_client?: string, // Service ID of the HTTP client to use // Default: "http_client"
+ *             api_catalog?: bool, // If set, the ElevenLabs API will be used to build the catalog and retrieve models information, using this option leads to additional HTTP calls
  *         },
  *         gemini?: array{
  *             api_key: string,
  *             http_client?: string, // Service ID of the HTTP client to use // Default: "http_client"
  *         },
+ *         generic?: array<string, array{ // Default: []
+ *             base_url: string,
+ *             api_key?: string,
+ *             http_client?: string, // Service ID of the HTTP client to use // Default: "http_client"
+ *             model_catalog?: string, // Service ID of the model catalog to use
+ *             supports_completions?: bool, // Default: true
+ *             supports_embeddings?: bool, // Default: true
+ *             completions_path?: string, // Default: "/v1/chat/completions"
+ *             embeddings_path?: string, // Default: "/v1/embeddings"
+ *         }>,
  *         huggingface?: array{
  *             api_key: string,
  *             provider?: string, // Default: "hf-inference"
@@ -1640,11 +1656,10 @@ namespace Symfony\Component\DependencyInjection\Loader\Configurator;
  *     },
  *     model?: array<string, array<string, array{ // Default: []
  *             class?: string, // The fully qualified class name of the model (must extend Symfony\AI\Platform\Model) // Default: "Symfony\\AI\\Platform\\Model"
- *             capabilities?: list<input-audio|input-image|input-messages|input-multiple|input-pdf|input-text|input-multimodal|output-audio|output-image|output-streaming|output-structured|output-text|tool-calling|text-to-speech|speech-to-text|embeddings|thinking>,
+ *             capabilities?: list<value-of<\Symfony\AI\Platform\Capability>|\Symfony\AI\Platform\Capability>,
  *         }>>,
  *     agent?: array<string, array{ // Default: []
  *         platform?: string, // Service name of platform // Default: "Symfony\\AI\\Platform\\PlatformInterface"
- *         track_token_usage?: bool, // Enable tracking of token usage for the agent // Default: true
  *         model?: mixed,
  *         memory?: mixed, // Memory configuration: string for static memory, or array with "service" key for service reference // Default: null
  *         prompt?: string|array{ // The system prompt configuration
@@ -1674,7 +1689,7 @@ namespace Symfony\Component\DependencyInjection\Loader\Configurator;
  *         fallback: string, // Service ID of the fallback agent for unmatched requests
  *     }>,
  *     store?: array{
- *         azure_search?: array<string, array{ // Default: []
+ *         azuresearch?: array<string, array{ // Default: []
  *             endpoint: string,
  *             api_key: string,
  *             index_name: string,
@@ -1686,7 +1701,7 @@ namespace Symfony\Component\DependencyInjection\Loader\Configurator;
  *             cache_key?: string, // The name of the store will be used if the key is not set
  *             strategy?: string,
  *         }>,
- *         chroma_db?: array<string, array{ // Default: []
+ *         chromadb?: array<string, array{ // Default: []
  *             client?: string, // Default: "Codewithkyrian\\ChromaDB\\Client"
  *             collection: string,
  *         }>,
@@ -1704,7 +1719,7 @@ namespace Symfony\Component\DependencyInjection\Loader\Configurator;
  *             metric?: string, // Default: "cosine"
  *             endpoint?: string,
  *         }>,
- *         manticore?: array<string, array{ // Default: []
+ *         manticoresearch?: array<string, array{ // Default: []
  *             endpoint?: string,
  *             table?: string,
  *             field?: string, // Default: "_vectors"
@@ -1763,6 +1778,22 @@ namespace Symfony\Component\DependencyInjection\Loader\Configurator;
  *             distance?: string, // Default: "cosine"
  *             quantization?: bool,
  *         }>,
+ *         elasticsearch?: array<string, array{ // Default: []
+ *             endpoint?: string,
+ *             index_name?: string,
+ *             vectors_field?: string, // Default: "_vectors"
+ *             dimensions?: int, // Default: 1536
+ *             similarity?: string, // Default: "cosine"
+ *             http_client?: string, // Default: "http_client"
+ *         }>,
+ *         opensearch?: array<string, array{ // Default: []
+ *             endpoint?: string,
+ *             index_name?: string,
+ *             vectors_field?: string, // Default: "_vectors"
+ *             dimensions?: int, // Default: 1536
+ *             space_type?: string, // Default: "l2"
+ *             http_client?: string, // Default: "http_client"
+ *         }>,
  *         pinecone?: array<string, array{ // Default: []
  *             client?: string, // Default: "Probots\\Pinecone\\Client"
  *             namespace?: string,
@@ -1775,7 +1806,7 @@ namespace Symfony\Component\DependencyInjection\Loader\Configurator;
  *             password?: string,
  *             table_name?: string,
  *             vector_field?: string, // Default: "embedding"
- *             distance?: cosine|inner_product|l1|l2, // Distance metric to use for vector similarity search // Default: "l2"
+ *             distance?: "cosine"|"inner_product"|"l1"|"l2", // Distance metric to use for vector similarity search // Default: "l2"
  *             dbal_connection?: string,
  *         }>,
  *         qdrant?: array<string, array{ // Default: []
@@ -1791,7 +1822,7 @@ namespace Symfony\Component\DependencyInjection\Loader\Configurator;
  *             client?: string, // a service id of a Redis client
  *             index_name?: string,
  *             key_prefix?: string, // Default: "vector:"
- *             distance?: \Symfony\AI\Store\Bridge\Redis\Distance::Cosine|\Symfony\AI\Store\Bridge\Redis\Distance::L2|\Symfony\AI\Store\Bridge\Redis\Distance::Ip, // Distance metric to use for vector similarity search // Default: "COSINE"
+ *             distance?: "COSINE"|"L2"|"IP", // Distance metric to use for vector similarity search // Default: "COSINE"
  *         }>,
  *         supabase?: array<string, array{ // Default: []
  *             http_client?: string, // Service ID of the HTTP client to use // Default: "http_client"

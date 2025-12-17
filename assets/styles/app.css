@@ -2,7 +2,6 @@ body {
     background-color: white;
 }
 
-/* Post card hover effects */
 .post-card {
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
@@ -12,7 +11,6 @@ body {
     box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.15) !important;
 }
 
-/* Post content styling */
 .post-content {
     font-size: 1.1rem;
     line-height: 1.8;
@@ -23,7 +21,6 @@ body {
     margin-bottom: 1.25rem;
 }
 
-/* Admin area styling */
 .admin-card {
     border-left: 4px solid #6f42c1;
 }
@@ -40,4 +37,19 @@ body {
 .admin-btn-primary:hover {
     background-color: #5a32a3;
     border-color: #5a32a3;
+}
+
+.admin-sidebar {
+    position: sticky;
+    top: 80px;
+    height: calc(100vh - 80px);
+    overflow-y: auto;
+}
+
+.admin-sidebar .nav-link {
+    transition: all 0.2s ease;
+}
+
+.admin-sidebar .nav-link:hover {
+    background-color: rgba(111, 66, 193, 0.1);
 }

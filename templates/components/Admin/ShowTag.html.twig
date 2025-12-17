@@ -1,0 +1,17 @@
+{% set tag = entity %}
+<div>
+    <div class="card-header bg-white border-bottom">
+        <h2 class="h4 mb-0">Tag Details</h2>
+    </div>
+    <div class="card-body">
+        <dl class="row mb-0">
+            <dt class="col-sm-3 text-muted">ID:</dt>
+            <dd class="col-sm-9"><code>{{ tag.id }}</code></dd>
+
+            <dt class="col-sm-3 text-muted">Name:</dt>
+            <dd class="col-sm-9">
+                <span class="badge bg-secondary fs-6">{{ tag.name }}</span>
+            </dd>
+        </dl>
+    </div>
+</div>

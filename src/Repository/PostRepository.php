@@ -34,6 +34,37 @@ class PostRepository extends ServiceEntityRepository
         }
     }
 
+    /**
+     * Count posts without tags
+     */
+    public function countWithoutTags(): int
+    {
+        $qb = $this->createQueryBuilder('p');
+        $qb->select('COUNT(p.id)')
+            ->leftJoin('p.tags', 't')
+            ->where('t.id IS NULL');
+
+        return (int) $qb->getQuery()->getSingleScalarResult();
+    }
+
+    public function getAverageTagsPerPost(): float
+    {
+        $totalPosts = $this->count([]);
+        if ($totalPosts === 0) {
+            return 0;
+        }
+
+        $qb = $this->createQueryBuilder('p');
+        $qb->select('p.id, COUNT(t.id) as tagCount')
+            ->leftJoin('p.tags', 't')
+            ->groupBy('p.id');
+
+        $postsWithTagCounts = $qb->getQuery()->getResult();
+        $totalTagCount = array_sum(array_column($postsWithTagCounts, 'tagCount'));
+
+        return round($totalTagCount / $totalPosts, 2);
+    }
+
 //    /**
 //     * @return Post[] Returns an array of Post objects
 //     */

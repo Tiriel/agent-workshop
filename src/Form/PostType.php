@@ -17,15 +17,6 @@ class PostType extends AbstractType
         $builder
             ->add('title')
             ->add('content')
-            ->add('createdAt', null, [
-                'widget' => 'single_text',
-            ])
-            ->add('updatedAt', null, [
-                'widget' => 'single_text',
-            ])
-            ->add('publishedAt', null, [
-                'widget' => 'single_text',
-            ])
             ->add('status')
             ->add('tags', EntityType::class, [
                 'class' => Tag::class,

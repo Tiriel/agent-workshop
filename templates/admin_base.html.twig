@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block main %}
+<div class="container-fluid g-0 my-5 pt-2">
+    <div class="row g-0">
+        <aside class="col-md-3 col-lg-2 bg-light border-end admin-sidebar">
+            <div class="p-3">
+                <h5 class="text-muted mb-3 px-2 fw-bold">Admin Panel</h5>
+                <twig:Admin:Navbar />
+            </div>
+        </aside>
+
+        <main class="col-md-9 col-lg-10">
+            <div class="p-3">
+                {% block body %}{% endblock %}
+            </div>
+        </main>
+    </div>
+</div>
+{% endblock %}

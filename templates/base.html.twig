@@ -17,11 +17,13 @@
     <header>
         <twig:Navbar currentRoute="{{ app.request.attributes.get('_route') }}" />
     </header>
-    <main class="container my-5" style="padding-top: 80px;">
+    {% block main %}
+    <main class="container my-5 pt-5">
         <turbo-frame id="main-content">
         {% block body %}{% endblock %}
         </turbo-frame>
     </main>
+    {% endblock %} %}
     <footer>
         <!-- -->
     </footer>

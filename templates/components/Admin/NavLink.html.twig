@@ -1,0 +1,13 @@
+{% props
+    route,
+    label,
+    active = false
+%}
+<a 
+    href="{{ path(route) }}"
+    class="nav-link rounded mb-1 px-3 {% if active == true or active == 'true' %}active admin-btn-primary text-white{% else %}text-dark{% endif %}"
+    {% if active == true or active == 'true' %}aria-current="page"{% endif %}
+>
+    {{ label }}
+</a>
+

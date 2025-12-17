@@ -1,0 +1,30 @@
+{% extends 'admin_base.html.twig' %}
+
+{% block title %}Show {{ shortName|capitalize }} - Admin{% endblock %}
+
+{% block body %}
+<div class="row mb-4">
+    <div class="col-12">
+        <a href="{{ path("app_admin_#{shortName}_index") }}" class="text-decoration-none text-muted mb-3 d-inline-block">
+            ← Back to posts
+        </a>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <div class="card admin-card shadow-sm border-0">
+            {{ component('Admin:'~componentName, {entity: entity}) }}
+            <div class="card-footer bg-white border-top">
+                <div class="d-flex justify-content-between">
+                    <a href="{{ path("app_admin_#{shortName}_index") }}" class="btn btn-outline-secondary">Back to list</a>
+                    <div>
+                        <a href="{{ path("app_admin_#{shortName}_edit", {'id': entity.id}) }}" class="btn admin-btn-primary text-white me-2">Edit</a>
+                        {{ include('admin/crud/_delete_form.html.twig') }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

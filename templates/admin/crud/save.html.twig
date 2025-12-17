@@ -1,0 +1,28 @@
+{% extends 'admin_base.html.twig' %}
+
+{% set isNew = 'new' in app.current_route %}
+
+{% block title %}{{ isNew ? 'Create New' : 'Edit'}} {{ shortName|capitalize }}{% endblock %}
+
+{% block body %}
+<div class="row mb-4">
+    <div class="col-12">
+        <a href="{{ path("app_admin_#{shortName}_index") }}" class="text-decoration-none text-muted mb-3 d-inline-block">
+            ← Back to {{ shortName }}s
+        </a>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12 col-lg-8">
+        <div class="card admin-card shadow-sm border-0">
+            <div class="card-header bg-white">
+                <h2 class="h4 mb-0">{{ isNew ? 'Create New' : 'Edit' }} {{ shortName|capitalize }}</h2>
+            </div>
+            <div class="card-body">
+                {{ include("admin/#{shortName}/_form.html.twig", {'button_label': (isNew ? 'Create ' : 'Update ')~shortName|capitalize}) }}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

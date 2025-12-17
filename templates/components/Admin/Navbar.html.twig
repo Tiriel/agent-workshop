@@ -1,0 +1,23 @@
+<nav class="nav flex-column">
+    <twig:Admin:NavLink
+        route="app_admin_dashboard"
+        label="Dashboard"
+        active="{{ app.current_route == 'app_admin_dashboard' }}"
+    />
+    <twig:Admin:NavLink
+        route="app_admin_post_index"
+        label="Posts"
+        active="{{ app.current_route starts with 'app_admin_post' }}"
+    />
+    <twig:Admin:NavLink
+        route="app_admin_tag_index"
+        label="Tags"
+        active="{{ app.current_route starts with 'app_admin_tag' }}"
+    />
+    <twig:Admin:NavLink
+        route="app_admin_user_index"
+        label="Users"
+        active="{{ app.current_route starts with 'app_admin_user' }}"
+    />
+</nav>
+

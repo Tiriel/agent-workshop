@@ -16,6 +16,16 @@ class TagRepository extends ServiceEntityRepository
         parent::__construct($registry, Tag::class);
     }
 
+    public function countUnused(): int
+    {
+        $qb = $this->createQueryBuilder('t');
+        $qb->select('COUNT(DISTINCT t.id)')
+            ->leftJoin('App\Entity\Post', 'p', 'WITH', 't MEMBER OF p.tags')
+            ->where('p.id IS NULL');
+
+        return (int) $qb->getQuery()->getSingleScalarResult();
+    }
+
     //    /**
     //     * @return Tag[] Returns an array of Tag objects
     //     */

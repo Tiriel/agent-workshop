@@ -1,0 +1,54 @@
+{% set post = entity %}
+<div>
+    <div class="card-header bg-white border-bottom">
+        <div class="d-flex justify-content-between align-items-center">
+            <h2 class="h4 mb-0">{{ post.title }}</h2>
+            <span class="badge admin-badge text-white">{{ post.status.label }}</span>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="row mb-4">
+            <div class="col-md-6">
+                <dl class="row mb-0">
+                    <dt class="col-sm-4 text-muted">ID:</dt>
+                    <dd class="col-sm-8"><code>{{ post.id }}</code></dd>
+
+                    <dt class="col-sm-4 text-muted">Author:</dt>
+                    <dd class="col-sm-8">
+                        {% if post.author %}
+                            {{ post.author.firstname ?? '' }} {{ post.author.lastname ?? '' }}
+                            <small class="text-muted">({{ post.author.email }})</small>
+                        {% else %}
+                            <span class="text-muted">—</span>
+                        {% endif %}
+                    </dd>
+
+                    <dt class="col-sm-4 text-muted">Created:</dt>
+                    <dd class="col-sm-8">{{ post.createdAt ? post.createdAt|date('F j, Y g:i A') : '—' }}</dd>
+
+                    <dt class="col-sm-4 text-muted">Updated:</dt>
+                    <dd class="col-sm-8">{{ post.updatedAt ? post.updatedAt|date('F j, Y g:i A') : '—' }}</dd>
+
+                    <dt class="col-sm-4 text-muted">Published:</dt>
+                    <dd class="col-sm-8">{{ post.publishedAt ? post.publishedAt|date('F j, Y g:i A') : 'Not published' }}</dd>
+                </dl>
+            </div>
+        </div>
+
+        <hr>
+
+        <h5 class="mb-3">Content</h5>
+        <div class="bg-light p-4 rounded">
+            {{ post.content|nl2br }}
+        </div>
+
+        {% if post.tags|length > 0 %}
+            <div class="mt-4">
+                <h5 class="mb-3">Tags</h5>
+                {% for tag in post.tags %}
+                    <span class="badge bg-secondary me-1">{{ tag.name }}</span>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+</div>

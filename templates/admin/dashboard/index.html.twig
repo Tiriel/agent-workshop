@@ -1,0 +1,177 @@
+{% extends 'admin_base.html.twig' %}
+
+{% block title %}Admin Dashboard{% endblock %}
+
+{% block body %}
+<div class="row mb-4">
+    <div class="col-12">
+        <h1 class="display-5 fw-bold mb-0">Dashboard</h1>
+    </div>
+</div>
+
+<div class="row g-4 mb-4">
+    <div class="col-12 col-md-6 col-lg-4">
+        <div class="card admin-card shadow-sm border-0 h-100">
+            <div class="card-header bg-white border-bottom">
+                <h3 class="h5 mb-0">User Statistics</h3>
+            </div>
+            <div class="card-body">
+                <div class="mb-3">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <span class="text-muted">Total Users</span>
+                        <strong class="fs-4">{{ user_stats.total_count }}</strong>
+                    </div>
+                </div>
+                <div>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span class="text-muted">Avg Posts/User</span>
+                        <strong>{{ user_stats.average_posts_per_user }}</strong>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer bg-white border-top">
+                <a href="{{ path('app_admin_user_index') }}" class="btn btn-sm btn-outline-primary w-100">View All Users</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-12 col-md-6 col-lg-4">
+        <div class="card admin-card shadow-sm border-0 h-100">
+            <div class="card-header bg-white border-bottom">
+                <h3 class="h5 mb-0">Post Statistics</h3>
+            </div>
+            <div class="card-body">
+                <div class="mb-3">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <span class="text-muted">Total Posts</span>
+                        <strong class="fs-4">{{ post_stats.total_count }}</strong>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <div class="small text-muted mb-1">By Status:</div>
+                    <div class="d-flex flex-wrap gap-1">
+                        {% for status, count in post_stats.count_by_status %}
+                            <span class="badge admin-badge text-white">{{ status|capitalize }}: {{ count }}</span>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="mb-2">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span class="text-muted small">Without Tags</span>
+                        <strong>{{ post_stats.count_without_tags }}</strong>
+                    </div>
+                </div>
+                <div class="mb-2">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span class="text-muted small">Avg Tags/Post</span>
+                        <strong>{{ post_stats.average_tags_per_post }}</strong>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer bg-white border-top">
+                <a href="{{ path('app_admin_post_index') }}" class="btn btn-sm btn-outline-primary w-100">View All Posts</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-12 col-md-6 col-lg-4">
+        <div class="card admin-card shadow-sm border-0 h-100">
+            <div class="card-header bg-white border-bottom">
+                <h3 class="h5 mb-0">Tag Statistics</h3>
+            </div>
+            <div class="card-body">
+                <div class="mb-3">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <span class="text-muted">Total Tags</span>
+                        <strong class="fs-4">{{ tag_stats.total_count }}</strong>
+                    </div>
+                </div>
+                <div>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span class="text-muted">Unused Tags</span>
+                        <strong class="{% if tag_stats.unused_count > 0 %}text-warning{% endif %}">{{ tag_stats.unused_count }}</strong>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer bg-white border-top">
+                <a href="{{ path('app_admin_tag_index') }}" class="btn btn-sm btn-outline-primary w-100">View All Tags</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row g-4 mb-4">
+    <div class="col-12 col-md-6">
+        <div class="card admin-card shadow-sm border-0 h-100">
+            <div class="card-header bg-white border-bottom">
+                <h3 class="h5 mb-0">Latest Post</h3>
+            </div>
+            <div class="card-body">
+                {% if latest_post %}
+                    <h4 class="h5 mb-2">
+                        <a href="{{ path('app_admin_post_show', {'id': latest_post.id}) }}" class="text-decoration-none">
+                            {{ latest_post.title }}
+                        </a>
+                    </h4>
+                    <div class="d-flex align-items-center text-muted small mb-2">
+                        {% if latest_post.author %}
+                            <span class="me-3">
+                                <strong>Author:</strong> {{ latest_post.author.firstname ?? '' }} {{ latest_post.author.lastname ?? '' }}
+                            </span>
+                        {% endif %}
+                        <span class="badge admin-badge text-white me-2">{{ latest_post.status.label }}</span>
+                        <span>{{ latest_post.createdAt|date('F j, Y g:i A') }}</span>
+                    </div>
+                    <p class="text-muted mb-0">
+                        {{ latest_post.content|slice(0, 150) }}{% if latest_post.content|length > 150 %}...{% endif %}
+                    </p>
+                {% else %}
+                    <div class="text-center py-4">
+                        <p class="text-muted mb-0">No recent post</p>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <div class="col-12 col-md-6">
+        <div class="card admin-card shadow-sm border-0 h-100">
+            <div class="card-header bg-white border-bottom">
+                <h3 class="h5 mb-0">Post Timeline</h3>
+            </div>
+            <div class="card-body">
+                <div class="mb-3">
+                    <div class="text-muted small mb-1">Oldest Post</div>
+                    <strong>
+                        {% if post_stats.oldest_date %}
+                            {{ post_stats.oldest_date|date('F j, Y') }}
+                        {% else %}
+                            <span class="text-muted">—</span>
+                        {% endif %}
+                    </strong>
+                </div>
+                <div class="mb-3">
+                    <div class="text-muted small mb-1">Latest Created</div>
+                    <strong>
+                        {% if post_stats.latest_created_date %}
+                            {{ post_stats.latest_created_date|date('F j, Y') }}
+                        {% else %}
+                            <span class="text-muted">—</span>
+                        {% endif %}
+                    </strong>
+                </div>
+                <div>
+                    <div class="text-muted small mb-1">Latest Published</div>
+                    <strong>
+                        {% if post_stats.latest_published_date %}
+                            {{ post_stats.latest_published_date|date('F j, Y') }}
+                        {% else %}
+                            <span class="text-muted">—</span>
+                        {% endif %}
+                    </strong>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
