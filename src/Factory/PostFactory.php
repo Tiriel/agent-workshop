@@ -42,7 +42,7 @@ final class PostFactory extends PersistentObjectFactory
     protected function defaults(): array|callable
     {
         return [
-            'author' => UserFactory::randomOrCreate(),
+            'author' => UserFactory::random(),
             'createdAt' => \DateTimeImmutable::createFromMutable(self::faker()->dateTimeBetween(startDate: '01-01-2022', endDate: 'now')),
             'status' => self::faker()->randomElement(PostStatus::cases()),
         ];

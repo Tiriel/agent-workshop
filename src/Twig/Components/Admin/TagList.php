@@ -20,14 +20,20 @@ class TagList implements ListComponentInterface
     #[LiveProp]
     public string $entityName = 'tag';
 
+    #[LiveProp]
+    public int $currentPage = 1;
+
     public function __construct(
         private readonly TagRepository $repository,
+        private readonly int $maxPerPage,
     ) {}
 
     public function getEntities(): iterable
     {
-        return new Pagerfanta(
-            new QueryAdapter($this->repository->createQueryBuilder('t'))
+        return Pagerfanta::createForCurrentPageWithMaxPerPage(
+            new QueryAdapter($this->repository->createQueryBuilder('t')),
+            $this->currentPage,
+            $this->maxPerPage,
         );
     }
 

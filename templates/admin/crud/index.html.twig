@@ -12,5 +12,5 @@
     </div>
 </div>
 
-{{ component('Admin:'~componentName, {paginated: true}) }}
+{{ component('Admin:'~componentName, {paginated: true, currentPage: app.request.query.get('page', 1)}) }}
 {% endblock %}

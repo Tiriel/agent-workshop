@@ -19,14 +19,20 @@ class UserList implements ListComponentInterface
     #[LiveProp]
     public string $entityName = 'user';
 
+    #[LiveProp]
+    public int $currentPage = 1;
+
     public function __construct(
         private readonly UserRepository $repository,
+        private readonly int $maxPerPage,
     ) {}
 
     public function getEntities(): iterable
     {
-        return new Pagerfanta(
-            new QueryAdapter($this->repository->createQueryBuilder('u'))
+        return Pagerfanta::createForCurrentPageWithMaxPerPage(
+            new QueryAdapter($this->repository->createQueryBuilder('u')),
+            $this->currentPage,
+            $this->maxPerPage,
         );
     }
 

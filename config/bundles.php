@@ -19,4 +19,5 @@ return [
     Zenstruck\Foundry\ZenstruckFoundryBundle::class => ['dev' => true, 'test' => true],
     BabDev\PagerfantaBundle\BabDevPagerfantaBundle::class => ['all' => true],
     Symfony\AI\AiBundle\AiBundle::class => ['all' => true],
+    Symfony\UX\Autocomplete\AutocompleteBundle::class => ['all' => true],
 ];

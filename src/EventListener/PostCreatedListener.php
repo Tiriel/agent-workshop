@@ -9,7 +9,7 @@ use Doctrine\ORM\Events;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\Clock\Clock;
 
-#[AsEntityListener(event: Events::prePersist, method: 'onPrePersist')]
+#[AsEntityListener(event: Events::prePersist, method: 'onPrePersist', entity: Post::class)]
 class PostCreatedListener
 {
     public function __construct(
@@ -20,7 +20,7 @@ class PostCreatedListener
     {
         $post
             ->setCreatedAt(Clock::get()->now())
-            ->setAuthor($this->security->getUser())
+            ->setAuthor($this->security->getUser() ?? $post->getAuthor())
         ;
     }
 }

@@ -49,7 +49,9 @@ final class PostController extends AbstractAdminController
             && $postLifecycleStateMachine->can($post, $transitionName)
         ) {
             $postLifecycleStateMachine->apply($post, $transitionName);
-            $post->setUpdatedAt(Clock::get()->now());
+            $post
+                ->setPublishedAt(Clock::get()->now())
+            ;
             $entityManager->persist($post);
             $entityManager->flush();
         }

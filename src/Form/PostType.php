@@ -22,6 +22,7 @@ class PostType extends AbstractType
                 'class' => Tag::class,
                 'choice_label' => 'name',
                 'multiple' => true,
+                'autocomplete' => true,
             ])
         ;
     }
