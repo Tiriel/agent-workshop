@@ -11,6 +11,7 @@
         "doctrine/doctrine-bundle": "^3.1",
         "doctrine/doctrine-migrations-bundle": "^3.7",
         "doctrine/orm": "^3.5.8",
+        "league/commonmark": "^2.8",
         "pagerfanta/doctrine-orm-adapter": "^4.7.2",
         "pagerfanta/twig": "^4.7.2",
         "phpdocumentor/reflection-docblock": "^5.6.5",
@@ -20,6 +21,7 @@
         "symfony/ai-bundle": "dev-main",
         "symfony/ai-chat": "dev-main",
         "symfony/ai-platform": "dev-main",
+        "symfony/ai-postgres-store": "dev-main",
         "symfony/ai-store": "dev-main",
         "symfony/asset": "7.4.*",
         "symfony/asset-mapper": "7.4.*",
@@ -56,6 +58,7 @@
         "symfony/workflow": "7.4.*",
         "symfony/yaml": "7.4.*",
         "twig/extra-bundle": "^2.12|^3.22.2",
+        "twig/markdown-extra": "^3.22",
         "twig/twig": "^2.12|^3.22.2"
     },
     "config": {

@@ -1,0 +1,26 @@
+{% props message = null, isLast = false %}
+
+{% set isBot = message is not instanceof('Symfony\\Ai\\Platform\\Message\\UserMessage') %}
+{% set date = message.metadata is not empty ? message.metadata.addedAt : null %}
+
+<div{{ attributes }} {{ isLast ? stimulus_controller('scroll') }}>
+    <div class="w-100 d-flex justify-content-{{ isBot ? 'start' : 'end' }}">
+        <div
+            class="p-3{{ isBot is not true ? ' order-2' }}">
+            {% set name = isBot ? 'SensioBot': app.user.firstname %}
+            <strong>{{ name }}</strong>
+        </div>
+        <div>
+            <div class="chat-message chat-message-{{ isBot ? 'bot' : 'user' }}">
+                {% if isBot %}
+                    {{ message.content|markdown_to_html }}
+                {% else %}
+                    {% for content in message.content %}
+                        {{ content.text|markdown_to_html }}
+                    {% endfor %}
+                {% endif %}
+                <i class="d-block {{ isBot ? 'text-secondary' : 'text-light text-opacity-75' }}">{{ date|date('d M Y H:i') }}</i>
+            </div>
+        </div>
+    </div>
+</div>
