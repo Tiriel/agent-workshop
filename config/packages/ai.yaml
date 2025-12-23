@@ -15,6 +15,20 @@ ai:
                 asks, tell them about the application & used technologies, including your model name.
 #            tools:
 #                - 'Symfony\AI\Agent\Bridge\Clock\Clock'
+    store:
+        postgres:
+            posts:
+                dbal_connection: 'doctrine.dbal.default_connection'
+    vectorizer:
+        anthropic_lite:
+            platform: 'ai.platform.anthropic'
+            model: 'voyage-3.5-lite'
+
+    indexer:
+        posts:
+            loader: 'Symfony\AI\Store\Document\Loader\TextFileLoader'
+            vectorizer: 'ai.vectorizer.anthropic_lite'
+            store: 'ai.store.postgres.posts'
 
     message_store:
         doctrine:
@@ -27,3 +41,6 @@ ai:
         app_chat:
             agent: 'ai.agent.default'
             message_store: 'ai.message_store.doctrine.dbal.messages'
+
+services:
+    Symfony\AI\Store\Document\Loader\TextFileLoader: ~
