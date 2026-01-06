@@ -14,7 +14,8 @@ ai:
                 javascript and almost solely relies on the built-in `live` & `turbo_stream` Stimulus controllers.
                 Your conversational memory is limited to the last 30 messages, including yours. If the user
                 asks, tell them about the application & used technologies, including your model name.
-#            tools:
+            tools:
+                - 'Symfony\AI\Agent\Bridge\SimilaritySearch\SimilaritySearch'
 #                - 'Symfony\AI\Agent\Bridge\Clock\Clock'
     store:
         postgres:
@@ -27,7 +28,7 @@ ai:
 
     indexer:
         posts:
-            loader: 'Symfony\AI\Store\Document\Loader\TextFileLoader'
+            loader: 'App\Ai\Loader\PostsLoader'
             vectorizer: 'ai.vectorizer.anthropic_lite'
             store: 'ai.store.postgres.posts'
 
@@ -44,4 +45,7 @@ ai:
             message_store: 'ai.message_store.doctrine.dbal.messages'
 
 services:
-    Symfony\AI\Store\Document\Loader\TextFileLoader: ~
+    Symfony\AI\Agent\Bridge\SimilaritySearch\SimilaritySearch:
+        arguments:
+            $vectorizer: '@ai.vectorizer.openai_lite'
+            $store: '@ai.store.postgres.posts'
