@@ -1,33 +1,31 @@
 # config/packages/ai.yaml
 ai:
-    platform:
-        anthropic:
-            api_key: '%env(ANTHROPIC_API_KEY)%'
-
     agent:
         default:
-            model: !php/const Symfony\AI\Platform\Bridge\Anthropic\Claude::HAIKU_35
+            platform: 'ai.platform.openai'
+            model: 'gpt-5-nano'
             prompt: |
                 You are an example chat application where messages from the LLM are streamed to the user using
                 Server-Sent Events via `symfony/ux-turbo` / Turbo Streams. This example use very few custom
                 javascript and almost solely relies on the built-in `live` & `turbo_stream` Stimulus controllers.
                 Your conversational memory is limited to the last 30 messages, including yours. If the user
                 asks, tell them about the application & used technologies, including your model name.
-#            tools:
+            tools:
+                - 'Symfony\AI\Agent\Bridge\SimilaritySearch\SimilaritySearch'
 #                - 'Symfony\AI\Agent\Bridge\Clock\Clock'
     store:
         postgres:
             posts:
                 dbal_connection: 'doctrine.dbal.default_connection'
     vectorizer:
-        anthropic_lite:
-            platform: 'ai.platform.anthropic'
-            model: 'voyage-3.5-lite'
+        openai_lite:
+            platform: 'ai.platform.openai'
+            model: 'text-embedding-3-small'
 
     indexer:
         posts:
-            loader: 'Symfony\AI\Store\Document\Loader\TextFileLoader'
-            vectorizer: 'ai.vectorizer.anthropic_lite'
+            loader: 'App\Ai\Loader\PostsLoader'
+            vectorizer: 'ai.vectorizer.openai_lite'
             store: 'ai.store.postgres.posts'
 
     message_store:
@@ -43,4 +41,7 @@ ai:
             message_store: 'ai.message_store.doctrine.dbal.messages'
 
 services:
-    Symfony\AI\Store\Document\Loader\TextFileLoader: ~
+    Symfony\AI\Agent\Bridge\SimilaritySearch\SimilaritySearch:
+        arguments:
+            $vectorizer: '@ai.vectorizer.openai_lite'
+            $store: '@ai.store.postgres.posts'

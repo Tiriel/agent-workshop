@@ -4,9 +4,9 @@
 {% set date = message.metadata is not empty ? message.metadata.addedAt : null %}
 
 <div{{ attributes }} {{ isLast ? stimulus_controller('scroll') }}>
-    <div class="w-100 d-flex justify-content-{{ isBot ? 'start' : 'end' }}">
+    <div class="w-100 justify-content-{{ isBot ? 'start' : 'end' }}">
         <div
-            class="p-3{{ isBot is not true ? ' order-2' }}">
+            class="p-3{{ isBot is not true ? ' text-end' }}">
             {% set name = isBot ? 'SensioBot': app.user.firstname %}
             <strong>{{ name }}</strong>
         </div>
