@@ -53,6 +53,18 @@
             "bin/phpunit"
         ]
     },
+    "symfony/ai-anthropic-platform": {
+        "version": "0.1",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "main",
+            "version": "0.1",
+            "ref": "169d966953a6b9aeca111cb7f0ac2da72e050159"
+        },
+        "files": [
+            "config/packages/ai_anthropic_platform.yaml"
+        ]
+    },
     "symfony/ai-bundle": {
         "version": "0.9999999",
         "recipe": {
@@ -65,18 +77,6 @@
             "config/packages/ai.yaml"
         ]
     },
-    "symfony/ai-open-ai-platform": {
-        "version": "0.1",
-        "recipe": {
-            "repo": "github.com/symfony/recipes",
-            "branch": "main",
-            "version": "0.1",
-            "ref": "4f925d48b69c145cde2286e2cabfc7bd5eb4aca9"
-        },
-        "files": [
-            "config/packages/ai_open_ai_platform.yaml"
-        ]
-    },
     "symfony/ai-postgres-store": {
         "version": "0.1",
         "recipe": {
@@ -87,6 +87,18 @@
         },
         "files": [
             "config/packages/ai_postgres_store.yaml"
+        ]
+    },
+    "symfony/ai-voyage-platform": {
+        "version": "0.1",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "main",
+            "version": "0.1",
+            "ref": "72b062541e3c7c1c1cee5b8fef9f9264ffa0aeeb"
+        },
+        "files": [
+            "config/packages/ai_voyage_platform.yaml"
         ]
     },
     "symfony/asset-mapper": {
