@@ -6,7 +6,11 @@
     "require": {
         "php": ">=8.4",
         "ext-ctype": "*",
+        "ext-filesystem": "*",
         "ext-iconv": "*",
+        "ext-pdo": "*",
+        "ext-sodium": "*",
+        "ext-xml": "*",
         "babdev/pagerfanta-bundle": "^4.6",
         "doctrine/doctrine-bundle": "^3.2.2",
         "doctrine/doctrine-migrations-bundle": "^3.7",
