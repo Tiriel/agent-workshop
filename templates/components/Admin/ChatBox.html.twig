@@ -1,0 +1,43 @@
+<div class="chat-box" {{ attributes }}>
+    <div class="chat-window{{ isOpen ? ' chat-open' }}">
+        <div class="chat-header">
+            <h6 class="mb-0">{{ title }}</h6>
+            <button
+                type="button"
+                class="btn-close btn-close-white"
+                aria-label="Close"
+                {{ stimulus_action('live', 'action', null, {'action': 'toggle'}) }}
+            ></button>
+        </div>
+        <div class="chat-messages"
+             id="messages"
+             {{ turbo_stream_listen('chat_messages') }}
+        >
+            {% for message in this.messages %}
+            <twig:Admin:MessageComponent :message="message" isLast="{{ loop.last ? true }}" />
+            {% endfor %}
+        </div>
+        <div class="chat-input">
+            {{ form_start(form, {
+                attr: {
+                    'data-action': 'live#action:prevent submit->chat-box#clearInput',
+                    'data-live-action-param': 'save',
+                    'onsubmit': 'this.reset();'
+                }
+            }) }}
+            <div class="input-group">
+                {{ form_widget(form.content) }}
+                <button type="submit" class="btn btn-primary">Send</button>
+            </div>
+            {{ form_end(form) }}
+        </div>
+    </div>
+
+    <button
+        type="button"
+        class="chat-toggle-btn{{ isOpen ? ' d-none' }}"
+        {{ stimulus_action('live', 'action', null, {'action': 'toggle'}) }}
+    >
+        <i class="bi bi-chat-dots"></i>
+    </button>
+</div>

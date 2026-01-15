@@ -1,0 +1,15 @@
+{# Learn how to use Turbo Streams: https://github.com/symfony/ux-turbo#broadcast-doctrine-entities-update #}
+{% block create %}
+    <twig:Turbo:Stream:Append target="#messages">
+            <twig:Admin:MessageComponent :message="entity" data-controller="scroll"></twig:Admin:MessageComponent>
+    </twig:Turbo:Stream:Append>
+{% endblock %}
+
+{% block update %}
+    <twig:Turbo:Stream:Replace target="#messages">
+            <twig:Admin:MessageComponent :message="entity" data-controller="scroll"></twig:Admin:MessageComponent>
+    </twig:Turbo:Stream:Replace>
+{% endblock %}
+
+{% block remove %}
+{% endblock %}
