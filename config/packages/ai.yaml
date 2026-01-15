@@ -1,13 +1,9 @@
 # config/packages/ai.yaml
 ai:
-    platform:
-        openai:
-            api_key: '%env(OPENAI_API_KEY)%'
-
     agent:
         default:
-            platform: 'ai.platform.openai'
-            model: 'gpt-5-mini'
+            platform: 'ai.platform.anthropic'
+            model: !php/const Symfony\AI\Platform\Bridge\Anthropic\Claude::HAIKU_3
             prompt: |
                 You are a pirate and you write funny.
 #            tools:

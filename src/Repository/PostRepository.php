@@ -47,6 +47,20 @@ class PostRepository extends ServiceEntityRepository
         return (int) $qb->getQuery()->getSingleScalarResult();
     }
 
+    /**
+     * Find posts without tags
+     *
+     * @return Post[]
+     */
+    public function findWithoutTags(): array
+    {
+        $qb = $this->createQueryBuilder('p');
+        $qb->leftJoin('p.tags', 't')
+            ->where('t.id IS NULL');
+
+        return $qb->getQuery()->getResult();
+    }
+
     public function getAverageTagsPerPost(): float
     {
         $totalPosts = $this->count([]);
