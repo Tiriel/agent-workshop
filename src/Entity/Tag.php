@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\IdGenerator\UuidGenerator;
 use Symfony\Component\Uid\Uuid;
 
-#[ORM\Entity(repositoryClass: TagRepository::class)]
+#[ORM\Entity(repositoryClass: TagRepository::class, readOnly: true) ]
 class Tag
 {
     #[ORM\Id]
