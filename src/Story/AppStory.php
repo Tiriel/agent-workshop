@@ -32,7 +32,6 @@ final class AppStory extends Story
             ->create();
 
         UserFactory::createMany(5);
-        TagFactory::createMany(20);
         PostFactory::createMany(50);
     }
 }

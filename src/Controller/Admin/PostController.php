@@ -30,7 +30,12 @@ final class PostController extends AbstractAdminController
     #[Route('/{id}/edit', name: 'app_admin_post_edit', requirements: ['id' => Requirement::UUID], methods: ['GET', 'POST'])]
     public function save(Request $request, ?Post $post): Response
     {
-        return $this->doSave(PostType::class, $request, $post);
+        if (!$post) {
+            $post = new Post();
+            $post->setAuthor($this->getUser());
+        }
+
+        return $this->doSave(PostType::class, $request, $post, true);
     }
 
     #[Route('/{id}', name: 'app_admin_post_delete', requirements: ['id' => Requirement::UUID], methods: ['POST'])]
@@ -45,7 +50,7 @@ final class PostController extends AbstractAdminController
         $entityManager = $this->container->get('manager');
 
         if (
-            $this->isCsrfTokenValid('transition_'.$transitionName.$post->getId(), $request->getPayload()->getString('_token'))
+            $this->isCsrfTokenValid('transition_' . $transitionName . $post->getId(), $request->getPayload()->getString('_token'))
             && $postLifecycleStateMachine->can($post, $transitionName)
         ) {
             $postLifecycleStateMachine->apply($post, $transitionName);

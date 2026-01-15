@@ -12,9 +12,12 @@ class UserType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('email', )
+            ->add('email')
             ->add('roles')
-            ->add('password')
+            ->add('plainPassword', \Symfony\Component\Form\Extension\Core\Type\PasswordType::class, [
+                'mapped' => false,
+                'required' => $options['method'] === 'POST', // optional on edit
+            ])
             ->add('firstname')
             ->add('lastname')
         ;

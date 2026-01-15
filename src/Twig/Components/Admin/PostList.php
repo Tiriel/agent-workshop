@@ -25,8 +25,9 @@ final class PostList implements ListComponentInterface
 
     public function __construct(
         private readonly PostRepository $repository,
-        private readonly int $maxPerPage,
-    ) {}
+        private readonly int $maxPerPage = 10,
+    ) {
+    }
 
     public function getEntities(): iterable
     {

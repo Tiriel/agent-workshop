@@ -6,6 +6,7 @@ use App\Entity\User;
 use App\Form\UserType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Routing\Requirement\Requirement;
 
@@ -26,9 +27,27 @@ final class UserController extends AbstractAdminController
 
     #[Route('/new', name: 'app_admin_user_new', methods: ['GET', 'POST'])]
     #[Route('/{id}/edit', name: 'app_admin_user_edit', requirements: ['id' => Requirement::UUID], methods: ['GET', 'POST'])]
-    public function save(Request $request, ?User $user): Response
+    public function save(Request $request, ?User $user, UserPasswordHasherInterface $passwordHasher): Response
     {
-        return $this->doSave(UserType::class, $request, $user);
+        $user ??= new User();
+        $form = $this->createForm(UserType::class, $user);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            if ($plainPassword = $form->get('plainPassword')->getData()) {
+                $user->setPassword($passwordHasher->hashPassword($user, $plainPassword));
+            }
+
+            $this->container->get('manager')->persist($user);
+            $this->container->get('manager')->flush();
+
+            return $this->redirectToRoute('app_admin_user_index', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->render("admin/crud/save.html.twig", [
+            'entity' => $user,
+            'form' => $form,
+        ]);
     }
 
     #[Route('/{id}', name: 'app_admin_user_delete', requirements: ['id' => Requirement::UUID], methods: ['POST'])]

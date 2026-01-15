@@ -9,7 +9,6 @@
         {% endif %}
     >
     {% if value is instanceof('\\DateTimeInterface') %}
-        {% dump value %}
         {{ value is not null ? value|date('d-m-Y') : '-' }}
     {% elseif value is instanceof('\\BackedEnum') %}
         {{ value.label }}

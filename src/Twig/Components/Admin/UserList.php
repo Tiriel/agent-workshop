@@ -24,8 +24,9 @@ class UserList implements ListComponentInterface
 
     public function __construct(
         private readonly UserRepository $repository,
-        private readonly int $maxPerPage,
-    ) {}
+        private readonly int $maxPerPage = 10,
+    ) {
+    }
 
     public function getEntities(): iterable
     {

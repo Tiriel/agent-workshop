@@ -18,7 +18,7 @@ abstract class AbstractAdminController extends AbstractController
     protected function getIndex(): Response
     {
         return $this->render("admin/crud/index.html.twig", [
-            'componentName' => ucfirst($this->getShortName()).'List',
+            'componentName' => ucfirst($this->getShortName()) . 'List',
         ]);
     }
 
@@ -34,7 +34,7 @@ abstract class AbstractAdminController extends AbstractController
             $entityManager->persist($entity);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_admin_post_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute(sprintf('app_admin_%s_index', $this->getShortName()), [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render("admin/crud/save.html.twig", [
@@ -47,7 +47,7 @@ abstract class AbstractAdminController extends AbstractController
     {
         return $this->render("admin/crud/show.html.twig", [
             'entity' => $entity,
-            'componentName' => 'Show'.ucfirst($this->getShortName()),
+            'componentName' => 'Show' . ucfirst($this->getShortName()),
         ]);
     }
 
@@ -55,7 +55,7 @@ abstract class AbstractAdminController extends AbstractController
     {
         $entityManager = $this->container->get('manager');
 
-        if ($this->isCsrfTokenValid('delete'.$entity->getId(), $request->getPayload()->getString('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $entity->getId(), $request->getPayload()->getString('_token'))) {
             $entityManager->remove($entity);
             $entityManager->flush();
         }
@@ -73,7 +73,7 @@ abstract class AbstractAdminController extends AbstractController
     public static function getSubscribedServices(): array
     {
         return \array_unique(\array_merge(
-            ['manager' => '?'.EntityManagerInterface::class],
+            ['manager' => '?' . EntityManagerInterface::class],
             parent::getSubscribedServices(),
         ));
     }

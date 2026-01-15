@@ -57,6 +57,7 @@ final class PostFactory extends PersistentObjectFactory
         return $this
             ->afterInstantiate(function(Post $post) {
                 $this->current = self::faker()->randomElement($this->fixtures);
+                unset($this->fixtures[\array_search($this->current, $this->fixtures, true)]);
                 $post
                     ->setTitle($this->current['title'])
                     ->setContent($this->current['content'])

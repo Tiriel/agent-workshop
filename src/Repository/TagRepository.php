@@ -16,6 +16,20 @@ class TagRepository extends ServiceEntityRepository
         parent::__construct($registry, Tag::class);
     }
 
+    public function findOneByName(string $name): ?Tag
+    {
+        return $this->findOneBy(['name' => $name]);
+    }
+
+    public function save(Tag $tag, bool $flush = true): void
+    {
+        $this->getEntityManager()->persist($tag);
+
+        if ($flush) {
+            $this->getEntityManager()->flush();
+        }
+    }
+
     public function countUnused(): int
     {
         $qb = $this->createQueryBuilder('t');
