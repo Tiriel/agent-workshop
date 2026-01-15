@@ -1,0 +1,16 @@
+{% block create %}
+    <twig:Turbo:Stream:Append target="#posts">
+        <twig:Admin:SinglePost :post="entity" />
+    </twig:Turbo:Stream:Append>
+{% endblock %}
+
+{% block update %}
+    <twig:Turbo:Stream:Update target="#post_{{ id }}">
+        <twig:Admin:SinglePost :post="entity" />
+    </twig:Turbo:Stream:Update>
+{% endblock %}
+
+{% block remove %}
+    <twig:Turbo:Stream:Remove target="#post_{{ id }}">
+    </twig:Turbo:Stream:Remove>
+{% endblock %}
