@@ -29,7 +29,7 @@ abstract class AbstractPostLoader implements LoaderInterface
                 $post->getContent()
             ),
             metadata: new Metadata($this->normalizer->normalize($post, context: [
-                AbstractNormalizer::ATTRIBUTES => ['id', 'title', 'content', 'createdAt', 'updatedAt', 'publishedAt', 'status', 'tags.name', 'author.id', 'author.email', 'author.firstname', 'author.lastname'],
+                AbstractNormalizer::ATTRIBUTES => ['id', 'title', 'content', 'createdAt', 'updatedAt', 'publishedAt', 'status', 'tags' => ['name'], 'author' => ['id', 'email', 'firstname', 'lastname']],
             ]))
         );
     }

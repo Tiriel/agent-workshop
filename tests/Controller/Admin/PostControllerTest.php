@@ -66,9 +66,8 @@ final class PostControllerTest extends WebTestCase
             ->fillField('post[content]', 'This is the content of my post.')
             ->selectFieldOption('post[status]', PostStatus::Draft->value)
             ->interceptRedirects()
-            ->click('Create Post');
-
-        $browser->assertRedirectedTo('/admin/post');
+            ->click('Create Post')
+            ->assertRedirectedTo('/admin/post');
 
         PostFactory::assert()->count(1);
         PostFactory::assert()->exists(['title' => 'My New Post']);

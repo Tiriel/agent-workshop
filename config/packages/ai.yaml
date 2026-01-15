@@ -1,3 +1,4 @@
+# yaml-language-server: $schema=../../vendor/symfony/dependency-injection/Loader/schema/services.schema.json
 # config/packages/ai.yaml
 ai:
     platform:
@@ -16,10 +17,15 @@ ai:
                 asks, tell them about the application & used technologies, including your model name.
             tools:
                 - 'Symfony\AI\Agent\Bridge\SimilaritySearch\SimilaritySearch'
+                - 'App\Ai\Tool\StatusSearch'
+                - 'App\Ai\Tool\SimilarityPostTagger'
+                - 'App\Ai\Tool\TagCreator'
 #                - 'Symfony\AI\Agent\Bridge\Clock\Clock'
     store:
         postgres:
             posts:
+                dbal_connection: 'doctrine.dbal.default_connection'
+            tags:
                 dbal_connection: 'doctrine.dbal.default_connection'
     vectorizer:
         voyage:
@@ -30,6 +36,9 @@ ai:
         posts:
             vectorizer: 'ai.vectorizer.voyage'
             store: 'ai.store.postgres.posts'
+        tags:
+            vectorizer: 'ai.vectorizer.voyage'
+            store: 'ai.store.postgres.tags'
 
     indexer:
         posts:
@@ -41,6 +50,11 @@ ai:
             loader: 'App\Ai\Loader\SinglePostLoader'
             vectorizer: 'ai.vectorizer.voyage'
             store: 'ai.store.postgres.posts'
+
+        tags:
+            loader: 'App\Ai\Loader\TagsLoader'
+            vectorizer: 'ai.vectorizer.voyage'
+            store: 'ai.store.postgres.tags'
 
     message_store:
         doctrine:
@@ -54,15 +68,3 @@ ai:
             agent: 'ai.agent.default'
             message_store: 'ai.message_store.doctrine.dbal.messages'
 
-services:
-    Symfony\AI\Agent\Bridge\SimilaritySearch\SimilaritySearch:
-        arguments:
-            $vectorizer: '@ai.vectorizer.voyage'
-            $store: '@ai.store.postgres.posts'
-
-    ai.command.setup_store:
-        class: Symfony\AI\Store\Command\SetupStoreCommand
-        arguments:
-            $stores: !tagged_locator { tag: ai.store, index_by: name }
-            $setupStoresOptions: { ai.store.postgres.posts: { vector_size: 1024 }}
-        tags: [console.command, container.no_preload]
