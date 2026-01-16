@@ -1,4 +1,4 @@
-.PHONY: help install start stop composer db fixtures store store-drop index
+.PHONY: help install start stop composer db fixtures test store store-drop index
 
 DOCKER_COMPOSE = docker compose
 PHP_CONT = $(DOCKER_COMPOSE) exec php
@@ -31,6 +31,9 @@ db: ## Setup database (Create & Migrate)
 
 fixtures: ## Load database fixtures
 	$(CONSOLE) doctrine:fixtures:load --no-interaction
+
+test: ## Run PHPUnit tests
+	$(PHP_CONT) bin/phpunit --testdox
 
 ##@ AI Store Commands
 store: ## Setup an AI store (args: <storename>)

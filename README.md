@@ -22,7 +22,7 @@ Before installing, you must configure your local environment variables:
     -   `ADMIN_EMAIL`: The login email for the admin account.
     -   `ADMIN_PWD`: The password for the admin account.
     -   `ANTHROPIC_API_KEY`: Your Anthropic API key (required for AI features).
-    -   `VOYAGE_API_KEY`: Your Voyage AI API key (optional, for alternative embeddings).
+    -   `VOYAGE_API_KEY`: Your Voyage AI API key (required for AI features).
 
 ## 🚀 Installation
 
@@ -55,7 +55,8 @@ The project uses a `Makefile` to simplify common tasks. To get started:
 
 To verify that the application is running correctly:
 
-1.  **Web Interface**: Open [https://localhost](https://localhost) in your browser. You should see the homepage with the latest posts.
+1.  **Functional Tests**: Run `make test` to run functional tests of the application.
+2.  **Web Interface**: Open [https://localhost](https://localhost) in your browser. You should see the homepage with the latest posts.
 2.  **Admin Panel**: Access [https://localhost/admin](https://localhost/admin) to manage Posts, Tags, and Users.
 3.  **Docker Logs**: If something isn't working, check the logs:
     ```bash
