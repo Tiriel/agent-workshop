@@ -51,6 +51,38 @@ The project uses a `Makefile` to simplify common tasks. To get started:
     make help
     ```
 
+<details>
+<summary><strong>Alternative: Without Make</strong></summary>
+
+If you don't have `make` installed, you can use Docker Compose commands directly:
+
+1.  **Full Installation**:
+    ```bash
+    docker compose build
+    docker compose up --wait
+    docker compose exec php composer install
+    docker compose exec php bin/console doctrine:database:create --if-not-exists
+    docker compose exec php bin/console doctrine:migrations:migrate --no-interaction
+    docker compose exec php bin/console foundry:load --no-interaction
+    ```
+
+2.  **Running the App**:
+    ```bash
+    docker compose up --wait
+    ```
+
+3.  **Stopping the App**:
+    ```bash
+    docker compose stop
+    ```
+
+4.  **Running Tests**:
+    ```bash
+    docker compose exec php bin/phpunit --testdox
+    ```
+
+</details>
+
 ## 🏥 Health Check
 
 To verify that the application is running correctly:

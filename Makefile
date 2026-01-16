@@ -10,8 +10,8 @@ help: ## Show this help message
 ##@ General Commands
 install: ## Full installation (Docker, Composer, Database, Fixtures)
 	$(DOCKER_COMPOSE) build
-	$(DOCKER_COMPOSE) up -d
-	$(PHP_CONT) composer install
+	$(MAKE) start
+	$(MAKE) composer
 	$(MAKE) db
 	$(MAKE) fixtures
 
@@ -30,7 +30,7 @@ db: ## Setup database (Create & Migrate)
 	$(CONSOLE) doctrine:migrations:migrate --no-interaction
 
 fixtures: ## Load database fixtures
-	$(CONSOLE) doctrine:fixtures:load --no-interaction
+	$(CONSOLE) foundry:load --no-interaction
 
 test: ## Run PHPUnit tests
 	$(PHP_CONT) bin/phpunit --testdox
