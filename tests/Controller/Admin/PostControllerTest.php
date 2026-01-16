@@ -59,15 +59,16 @@ final class PostControllerTest extends WebTestCase
     {
         $admin = UserFactory::createOne(['roles' => ['ROLE_ADMIN']]);
 
-        $this->browser()
+        $browser = $this->browser()
             ->actingAs($admin)
             ->visit('/admin/post/new')
             ->fillField('post[title]', 'My New Post')
             ->fillField('post[content]', 'This is the content of my post.')
             ->selectFieldOption('post[status]', PostStatus::Draft->value)
             ->interceptRedirects()
-            ->click('Create Post')
-            ->assertRedirectedTo('/admin/post');
+            ->click('Create Post');
+
+        $browser->assertRedirectedTo('/admin/post');
 
         PostFactory::assert()->count(1);
         PostFactory::assert()->exists(['title' => 'My New Post']);
@@ -110,14 +111,11 @@ final class PostControllerTest extends WebTestCase
 
         PostFactory::assert()->count(1);
 
-        $browser = $this->browser()->actingAs($admin)->visit('/admin/post/' . $postId);
-        $token = $browser->crawler()->filter('input[name="_token"]')->attr('value');
-
-        $browser
+        $this->browser()
+            ->actingAs($admin)
+            ->visit('/admin/post/' . $postId)
             ->interceptRedirects()
-            ->post('/admin/post/' . $postId, [
-                'body' => ['_token' => $token],
-            ])
+            ->click('Delete')
             ->assertRedirectedTo('/admin/post');
 
         PostFactory::assert()->count(0);

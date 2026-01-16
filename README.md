@@ -1,51 +1,65 @@
-# Symfony Docker
+# Agent Workshop
 
-A [Docker](https://www.docker.com/)-based installer and runtime for the [Symfony](https://symfony.com) web framework,
-with [FrankenPHP](https://frankenphp.dev) and [Caddy](https://caddyserver.com/) inside!
+This application is a Symfony-based playground for AI-powered features. It demonstrates how to integrate LLMs (Claude 3 Haiku via Anthropic), vector stores (PostgreSQL with `pgvector`), and similarity search into a modern web application.
 
-![CI](https://github.com/dunglas/symfony-docker/workflows/CI/badge.svg)
+The project features:
+- **Automatic Tagging**: Posts are automatically tagged based on their content similarity to existing posts using vector embeddings.
+- **AI Tools**: Custom tools like `SimilarityPostTagger` and `TagCreator` leverage LLMs to enrich application data.
+- **Admin CRUD**: A full dymanic administration interface built with Symfony UX Live Components.
 
-## Getting Started
+## ⚙️ Configuration
 
-1. If not already done, [install Docker Compose](https://docs.docker.com/compose/install/) (v2.10+)
-2. Run `docker compose build --pull --no-cache` to build fresh images
-3. Run `docker compose up --wait` to set up and start a fresh Symfony project
-4. Open `https://localhost` in your favorite web browser and [accept the auto-generated TLS certificate](https://stackoverflow.com/a/15076602/1352334)
-5. Run `docker compose down --remove-orphans` to stop the Docker containers.
+Before installing, you must configure your local environment variables:
 
-## Features
+1.  **Create a `.env.local` file**:
+    ```bash
+    cp .env .env.local
+    ```
 
-- Production, development and CI ready
-- Just 1 service by default
-- Blazing-fast performance thanks to [the worker mode of FrankenPHP](https://frankenphp.dev/docs/worker/)
-- [Installation of extra Docker Compose services](docs/extra-services.md) with Symfony Flex
-- Automatic HTTPS (in dev and prod)
-- HTTP/3 and [Early Hints](https://symfony.com/blog/new-in-symfony-6-3-early-hints) support
-- Real-time messaging thanks to a built-in [Mercure hub](https://symfony.com/doc/current/mercure.html)
-- [Vulcain](https://vulcain.rocks) support
-- Native [XDebug](docs/xdebug.md) integration
-- Super-readable configuration
+2.  **Set sensitive variables**:
+    Open `.env.local` and set at least the following variables:
+    -   `DATABASE_URL`: The database connection string (e.g., `postgresql://app:!ChangeMe!@127.0.0.1:5432/app?serverVersion=16&charset=utf8`).
+    -   `ADMIN_EMAIL`: The login email for the admin account.
+    -   `ADMIN_PWD`: The password for the admin account.
+    -   `ANTHROPIC_API_KEY`: Your Anthropic API key (required for AI features).
+    -   `VOYAGE_API_KEY`: Your Voyage AI API key (optional, for alternative embeddings).
 
-**Enjoy!**
+## 🚀 Installation
 
-## Docs
+The project uses a `Makefile` to simplify common tasks. To get started:
 
-1. [Options available](docs/options.md)
-2. [Using Symfony Docker with an existing project](docs/existing-project.md)
-3. [Support for extra services](docs/extra-services.md)
-4. [Deploying in production](docs/production.md)
-5. [Debugging with Xdebug](docs/xdebug.md)
-6. [TLS Certificates](docs/tls.md)
-7. [Using MySQL instead of PostgreSQL](docs/mysql.md)
-8. [Using Alpine Linux instead of Debian](docs/alpine.md)
-9. [Using a Makefile](docs/makefile.md)
-10. [Updating the template](docs/updating.md)
-11. [Troubleshooting](docs/troubleshooting.md)
+1.  **Full Installation**:
+    Make sure you have Docker and Docker Compose installed. Run the following command to build containers, install dependencies, and setup the database:
+    ```bash
+    make install
+    ```
 
-## License
+2.  **Running the App**:
+    Start the application:
+    ```bash
+    make start
+    ```
 
-Symfony Docker is available under the MIT License.
+3.  **Stopping the App**:
+    ```bash
+    make stop
+    ```
 
-## Credits
+4.  **Help**:
+    View all available commands:
+    ```bash
+    make help
+    ```
 
-Created by [Kévin Dunglas](https://dunglas.dev), co-maintained by [Maxime Helias](https://twitter.com/maxhelias) and sponsored by [Les-Tilleuls.coop](https://les-tilleuls.coop).
+## 🏥 Health Check
+
+To verify that the application is running correctly:
+
+1.  **Web Interface**: Open [https://localhost](https://localhost) in your browser. You should see the homepage with the latest posts.
+2.  **Admin Panel**: Access [https://localhost/admin](https://localhost/admin) to manage Posts, Tags, and Users.
+3.  **Docker Logs**: If something isn't working, check the logs:
+    ```bash
+    docker compose logs -f php
+    ```
+4.  **Trainer Contact**: As a last resort, if you can't make the application work, contact your trainer via email 
+    (provided on the SymfonyLive workshop instructions)

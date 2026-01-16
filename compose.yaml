@@ -44,26 +44,6 @@ services:
     volumes:
       - database_data:/var/lib/postgresql/data
 
-  # Si tu veux ChromaDB (optionnel)
-  chromadb:
-    image: chromadb/chroma:latest
-    restart: unless-stopped
-    environment:
-      ALLOW_RESET: "true"
-      ANONYMIZED_TELEMETRY: "false"
-    volumes:
-      - chromadb_data:/chroma/chroma
-    ports:
-      - "8001:8000"
-
-  # Redis pour cache/sessions
-  redis:
-    image: redis:7-alpine
-    restart: unless-stopped
-    command: redis-server --maxmemory 128mb --maxmemory-policy allkeys-lru
-    volumes:
-      - redis_data:/data
-
 # Mercure is installed as a Caddy module, prevent the Flex recipe from installing another service
 ###> symfony/mercure-bundle ###
 ###< symfony/mercure-bundle ###
@@ -72,7 +52,5 @@ volumes:
   caddy_data:
   caddy_config:
   database_data:
-  chromadb_data:
-  redis_data:
 ###> symfony/mercure-bundle ###
 ###< symfony/mercure-bundle ###

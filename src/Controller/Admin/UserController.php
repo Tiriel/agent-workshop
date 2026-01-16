@@ -4,6 +4,7 @@ namespace App\Controller\Admin;
 
 use App\Entity\User;
 use App\Form\UserType;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
@@ -38,8 +39,10 @@ final class UserController extends AbstractAdminController
                 $user->setPassword($passwordHasher->hashPassword($user, $plainPassword));
             }
 
-            $this->container->get('manager')->persist($user);
-            $this->container->get('manager')->flush();
+            /** @var EntityManagerInterface $manager */
+            $manager = $this->container->get('manager');
+            $manager->persist($user);
+            $manager->flush();
 
             return $this->redirectToRoute('app_admin_user_index', [], Response::HTTP_SEE_OTHER);
         }

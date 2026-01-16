@@ -73,7 +73,9 @@ abstract class AbstractAdminController extends AbstractController
     public static function getSubscribedServices(): array
     {
         return \array_unique(\array_merge(
-            ['manager' => '?' . EntityManagerInterface::class],
+            [
+                'manager' => '?' . EntityManagerInterface::class,
+            ],
             parent::getSubscribedServices(),
         ));
     }

@@ -125,14 +125,11 @@ final class UserControllerTest extends WebTestCase
 
         UserFactory::assert()->count(2); // Admin + User
 
-        $browser = $this->browser()->actingAs($admin)->visit('/admin/user/' . $userId);
-        $token = $browser->crawler()->filter('input[name="_token"]')->attr('value');
-
-        $browser
+        $this->browser()
+            ->actingAs($admin)
+            ->visit('/admin/user/' . $userId)
             ->interceptRedirects()
-            ->post('/admin/user/' . $userId, [
-                'body' => ['_token' => $token],
-            ])
+            ->click('Delete')
             ->assertRedirectedTo('/admin/user');
 
         UserFactory::assert()->count(1); // Only Admin left

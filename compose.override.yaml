@@ -42,10 +42,6 @@ services:
       MP_SMTP_AUTH_ALLOW_INSECURE: 1
 ###< symfony/mailer ###
 
-  redis:
-    ports:
-      - "6379:6379"
-
   # Adminer pour gérer la DB (optionnel)
   adminer:
     image: adminer:latest

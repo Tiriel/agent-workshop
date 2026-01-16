@@ -105,14 +105,11 @@ final class TagControllerTest extends WebTestCase
 
         TagFactory::assert()->count(1);
 
-        $browser = $this->browser()->actingAs($admin)->visit('/admin/tag/' . $tagId);
-        $token = $browser->crawler()->filter('input[name="_token"]')->attr('value');
-
-        $browser
+        $this->browser()
+            ->actingAs($admin)
+            ->visit('/admin/tag/' . $tagId)
             ->interceptRedirects()
-            ->post('/admin/tag/' . $tagId, [
-                'body' => ['_token' => $token],
-            ])
+            ->click('Delete')
             ->assertRedirectedTo('/admin/tag');
 
         TagFactory::assert()->count(0);

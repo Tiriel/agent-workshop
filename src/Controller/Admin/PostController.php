@@ -73,4 +73,20 @@ final class PostController extends AbstractAdminController
     {
         return Post::class;
     }
+
+    protected function doSaveAndIndex(object $entity): \Symfony\AI\Store\Document\TextDocument
+    {
+        /** @var Post $entity */
+        return new \Symfony\AI\Store\Document\TextDocument(
+            id: $entity->getId(),
+            content: sprintf(
+                "Title: %s\nAuthor: %s %s\nContent:\n%s",
+                $entity->getTitle(),
+                $entity->getAuthor()->getFirstname(),
+                $entity->getAuthor()->getLastname(),
+                $entity->getContent()
+            ),
+            metadata: new \Symfony\AI\Store\Document\Metadata($entity)
+        );
+    }
 }
