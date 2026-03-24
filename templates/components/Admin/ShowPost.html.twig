@@ -1,4 +1,5 @@
 {% set post = entity %}
+
 {{ turbo_stream_from(post) }}
 <div id="post_{{ post.id }}">
     <twig:Admin:SinglePost :post="post" />

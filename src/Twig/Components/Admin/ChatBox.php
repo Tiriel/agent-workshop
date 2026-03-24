@@ -3,13 +3,9 @@
 namespace App\Twig\Components\Admin;
 
 use App\Form\MessageType;
-use Symfony\AI\Chat\ChatInterface;
-use Symfony\AI\Chat\MessageStoreInterface;
-use Symfony\AI\Platform\Message\Message;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Bundle\FrameworkBundle\Controller\ControllerHelper;
+use Symfony\Component\DependencyInjection\Attribute\AutowireMethodOf;
 use Symfony\Component\Form\FormInterface;
-use Symfony\Component\Mercure\HubInterface;
-use Symfony\Component\Mercure\Update;
 use Symfony\UX\LiveComponent\Attribute\AsLiveComponent;
 use Symfony\UX\LiveComponent\Attribute\LiveAction;
 use Symfony\UX\LiveComponent\Attribute\LiveProp;
@@ -18,7 +14,7 @@ use Symfony\UX\LiveComponent\DefaultActionTrait;
 use Symfony\UX\TwigComponent\Attribute\ExposeInTemplate;
 
 #[AsLiveComponent]
-class ChatBox extends AbstractController
+class ChatBox
 {
     use DefaultActionTrait;
     use ComponentWithFormTrait;
@@ -27,35 +23,12 @@ class ChatBox extends AbstractController
     public string $title = '';
 
     #[LiveProp]
-    public bool $isOpen;
+    public bool $isOpen = false;
 
     public function __construct(
-        private readonly ChatInterface $chat,
-        private readonly MessageStoreInterface $store,
-        private readonly HubInterface $hub,
-    ) {
-    }
-
-    public function mount(): void
-    {
-        $this->isOpen ??= false;
-    }
-
-    #[LiveAction]
-    public function save(): void
-    {
-        $this->submitForm();
-        $data = $this->getForm()->getData();
-        $message = Message::ofUser($data['content']);
-
-        $this->hub->publish(new Update(
-            'chat_messages',
-            $this->renderBlock('broadcast/Message.stream.html.twig', 'create', ['entity' => $message]),
-        ));
-        $result = $this->chat->submit($message);
-
-        $this->resetForm();
-    }
+        #[AutowireMethodOf(ControllerHelper::class)]
+        private readonly \Closure $createForm,
+    ) {}
 
     #[LiveAction]
     public function toggle(): void
@@ -63,14 +36,14 @@ class ChatBox extends AbstractController
         $this->isOpen = !$this->isOpen;
     }
 
+    protected function instantiateForm(): FormInterface
+    {
+        return ($this->createForm)(MessageType::class);
+    }
+
     #[ExposeInTemplate]
     public function getMessages(): array
     {
-        return $this->store->load()->getMessages();
-    }
-
-    protected function instantiateForm(): FormInterface
-    {
-        return $this->createForm(MessageType::class);
+        return [];
     }
 }
