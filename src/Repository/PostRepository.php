@@ -52,11 +52,15 @@ class PostRepository extends ServiceEntityRepository
      *
      * @return Post[]
      */
-    public function findWithoutTags(): array
+    public function findWithoutTags(?int $limit =null): array
     {
         $qb = $this->createQueryBuilder('p');
         $qb->leftJoin('p.tags', 't')
             ->where('t.id IS NULL');
+
+        if (is_int($limit)) {
+            $qb->setMaxResults($limit);
+        }
 
         return $qb->getQuery()->getResult();
     }
