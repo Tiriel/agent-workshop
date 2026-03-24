@@ -9,6 +9,7 @@ ai:
                 Always use the tools at your disposal when you need.
             tools:
                 - 'App\Ai\Tool\StatusSearch'
+                - 'App\Ai\Tool\PostSimilarityTagger'
                 - 'Symfony\AI\Agent\Bridge\SimilaritySearch\SimilaritySearch'
     message_store:
         doctrine:
