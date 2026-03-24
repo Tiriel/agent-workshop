@@ -10,7 +10,9 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\IdGenerator\UuidGenerator;
 use Symfony\Component\Uid\Uuid;
+use Symfony\UX\Turbo\Attribute\Broadcast;
 
+#[Broadcast]
 #[ORM\ChangeTrackingPolicy('DEFERRED_EXPLICIT')]
 #[ORM\Entity(repositoryClass: PostRepository::class)]
 class Post
