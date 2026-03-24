@@ -3,9 +3,14 @@
 namespace App\Twig\Components\Admin;
 
 use App\Form\MessageType;
+use Symfony\AI\Chat\ChatInterface;
+use Symfony\AI\Chat\MessageStoreInterface;
+use Symfony\AI\Platform\Message\Message;
 use Symfony\Bundle\FrameworkBundle\Controller\ControllerHelper;
 use Symfony\Component\DependencyInjection\Attribute\AutowireMethodOf;
 use Symfony\Component\Form\FormInterface;
+use Symfony\Component\Mercure\HubInterface;
+use Symfony\Component\Mercure\Update;
 use Symfony\UX\LiveComponent\Attribute\AsLiveComponent;
 use Symfony\UX\LiveComponent\Attribute\LiveAction;
 use Symfony\UX\LiveComponent\Attribute\LiveProp;
@@ -28,12 +33,33 @@ class ChatBox
     public function __construct(
         #[AutowireMethodOf(ControllerHelper::class)]
         private readonly \Closure $createForm,
+        #[AutowireMethodOf(ControllerHelper::class)]
+        private readonly \Closure $renderBlock,
+        private readonly ChatInterface $chat,
+        private readonly MessageStoreInterface $store,
+        private readonly HubInterface $hub,
     ) {}
 
     #[LiveAction]
     public function toggle(): void
     {
         $this->isOpen = !$this->isOpen;
+    }
+
+    #[LiveAction]
+    public function save(): void
+    {
+        $this->submitForm();
+        $message = Message::ofUser($this->getForm()->getData()['content']);
+        $this->hub->publish(new Update(
+            'chat_messages',
+            ($this->renderBlock)(
+                'broadcast/Message.stream.html.twig',
+                'create',
+                ['entity' => $message],
+            ),
+        ));
+        $this->chat->submit($message);
     }
 
     protected function instantiateForm(): FormInterface
@@ -44,6 +70,6 @@ class ChatBox
     #[ExposeInTemplate]
     public function getMessages(): array
     {
-        return [];
+        return $this->store->load()->getMessages();
     }
 }

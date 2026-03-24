@@ -26,7 +26,6 @@
         "symfony/ai-chat": "^0.14",
         "symfony/ai-platform": "^0.14.1",
         "symfony/ai-postgres-store": "^0.14",
-        "symfony/ai-similarity-search-tool": "^0.14",
         "symfony/ai-store": "^0.14",
         "symfony/ai-voyage-platform": "^0.14",
         "symfony/asset": "8.1.*",
