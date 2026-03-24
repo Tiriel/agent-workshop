@@ -6,7 +6,16 @@ use App\Enum\PostStatus;
 use App\Repository\PostRepository;
 use Symfony\AI\Agent\Toolbox\Attribute\AsTool;
 
-#[AsTool(name: 'status_search', description: 'Counts posts in database based on a spefici status')]
+#[AsTool(
+    name: 'status_search',
+    description: <<<EOD
+Counts posts by their specific status.
+Available statuses are:
+* draft
+* published
+* archived
+EOD
+)]
 class StatusSearch
 {
     public function __construct(

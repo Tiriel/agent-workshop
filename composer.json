@@ -26,6 +26,7 @@
         "symfony/ai-doctrine-message-store": "^0.1.0",
         "symfony/ai-platform": "^0.1.0",
         "symfony/ai-postgres-store": "^0.1.0",
+        "symfony/ai-similarity-search-tool": "^0.1.0",
         "symfony/ai-store": "^0.1.0",
         "symfony/ai-voyage-platform": "^0.1.0",
         "symfony/asset": "8.0.*",

@@ -26,6 +26,13 @@ services:
 
     Symfony\AI\Agent\Bridge\SimilaritySearch\SimilaritySearch:
         arguments:
-            $retriever: '@ai.retriever.posts'
-
-
+            $vectorizer: '@ai.vectorizer.voyage'
+            $store: '@ai.store.postgres.posts'
+    ai.command.setup_store:
+        class: Symfony\AI\Store\Command\SetupStoreCommand
+        arguments:
+            $stores: !tagged_locator { tag: ai.store, index_by: name }
+            $setupStoresOptions:
+                ai.store.postgres.posts: { vector_size: 1024 }
+                ai.store.postgres.tags: { vector_size: 1024 }
+        tags: [console.command, container.no_preload]
