@@ -6,8 +6,10 @@ ai:
             model: !php/const Symfony\AI\Platform\Bridge\Anthropic\Claude::HAIKU_3
             prompt: |
                 You are an AI assistant for a blog management system.
+                Always use the tools at your disposal when you need.
             tools:
                 - 'App\Ai\Tool\StatusSearch'
+                - 'Symfony\AI\Agent\Bridge\SimilaritySearch\SimilaritySearch'
     message_store:
         doctrine:
             dbal:
@@ -19,3 +21,30 @@ ai:
         app_chat:
             agent: 'ai.agent.default'
             message_store: 'ai.message_store.doctrine.dbal.messages'
+
+    store:
+        postgres:
+            tags:
+                dbal_connection: 'doctrine.dbal.default_connection'
+            posts:
+                dbal_connection: 'doctrine.dbal.default_connection'
+    vectorizer:
+        voyage:
+            platform: 'ai.platform.voyage'
+            model: 'voyage-3.5-lite'
+    indexer:
+        tags:
+            loader: 'App\Ai\Loader\TagsLoader'
+            vectorizer: 'ai.vectorizer.voyage'
+            store: 'ai.store.postgres.tags'
+        posts:
+            loader: 'App\Ai\Loader\PostsLoader'
+            vectorizer: 'ai.vectorizer.voyage'
+            store: 'ai.store.postgres.posts'
+    retriever:
+        posts:
+            store: 'ai.store.postgres.posts'
+            vectorizer: 'ai.vectorizer.voyage'
+        tags:
+            store: 'ai.store.postgres.tags'
+            vectorizer: 'ai.vectorizer.voyage'
