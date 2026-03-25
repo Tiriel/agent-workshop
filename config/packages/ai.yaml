@@ -11,6 +11,7 @@ ai:
             tools:
                 - 'App\Ai\Tool\StatusSearch'
                 - 'App\Ai\Tool\UnifiedSearch'
+                - 'App\Ai\Tool\SimilarityPostTagger'
                 - 'Symfony\AI\Agent\Bridge\SimilaritySearch\SimilaritySearch'
     message_store:
         doctrine:
