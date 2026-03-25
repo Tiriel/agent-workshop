@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "164b9a2e3d6f86df5ba9fb7d4bbdf20b",
+    "content-hash": "a6d85248eb48246d0d7afb4aa8bedcc7",
     "packages": [
         {
             "name": "babdev/pagerfanta-bundle",
@@ -3379,6 +3379,97 @@
             ],
             "support": {
                 "source": "https://github.com/symfony/ai-postgres-store/tree/v0.1.0"
+            },
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://github.com/nicolas-grekas",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2025-12-23T21:53:21+00:00"
+        },
+        {
+            "name": "symfony/ai-similarity-search-tool",
+            "version": "v0.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/ai-similarity-search-tool.git",
+                "reference": "a8c3cb3a1096925eb00fa5dfa30335f46ae8aef1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/ai-similarity-search-tool/zipball/a8c3cb3a1096925eb00fa5dfa30335f46ae8aef1",
+                "reference": "a8c3cb3a1096925eb00fa5dfa30335f46ae8aef1",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=8.2",
+                "symfony/ai-agent": "^0.1",
+                "symfony/ai-store": "^0.1"
+            },
+            "require-dev": {
+                "phpstan/phpstan": "^2.1",
+                "phpstan/phpstan-phpunit": "^2.0",
+                "phpstan/phpstan-strict-rules": "^2.0",
+                "phpunit/phpunit": "^11.5.46"
+            },
+            "type": "symfony-ai-tool",
+            "extra": {
+                "thanks": {
+                    "url": "https://github.com/symfony/ai",
+                    "name": "symfony/ai"
+                },
+                "branch-alias": {
+                    "dev-main": "0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\AI\\Agent\\Bridge\\SimilaritySearch\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Christopher Hertel",
+                    "email": "mail@christopher-hertel.de"
+                },
+                {
+                    "name": "Oskar Stark",
+                    "email": "oskarstark@googlemail.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "SimilaritySearch AI tool bridge for Symfony applications.",
+            "keywords": [
+                "Agent",
+                "Bridge",
+                "ai",
+                "search",
+                "similarity-search",
+                "tool",
+                "vector"
+            ],
+            "support": {
+                "source": "https://github.com/symfony/ai-similarity-search-tool/tree/v0.1.0"
             },
             "funding": [
                 {

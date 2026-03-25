@@ -2,6 +2,8 @@
 
 namespace App\Enum;
 
+use phpDocumentor\Reflection\Types\Static_;
+
 enum PostStatus: string
 {
     case Draft = 'draft';

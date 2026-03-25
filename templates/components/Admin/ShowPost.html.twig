@@ -1,4 +1,4 @@
 {% set post = entity %}
 <div id="post_{{ post.id }}" {{ turbo_stream_listen(post) }}>
-    <twig:Admin:SinglePost post="post"/>
+    <twig:Admin:SinglePost :post="post"/>
 </div>
