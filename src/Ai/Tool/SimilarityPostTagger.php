@@ -15,7 +15,7 @@ use Symfony\Component\DependencyInjection\Attribute\Autowire;
 )]
 final class SimilarityPostTagger
 {
-    private const float MIN_SIMILARITY_SCORE = 0.5;
+    private const float MIN_SIMILARITY_SCORE = 0.2;
     private const int MAX_TAGS_PER_POST = 5;
 
     public function __construct(
@@ -53,21 +53,24 @@ final class SimilarityPostTagger
     private function tagPost(Post $post): ?string
     {
         $content = $post->getContent();
+        dump($content);
         $tagDocuments = $this->tagsRetriever->retrieve($content);
+        dump($tagDocuments);
 
         $addedTags = [];
         $count = 0;
 
         foreach ($tagDocuments as $document) {
+            dump($document);
             if ($count >= self::MAX_TAGS_PER_POST) {
                 break;
             }
 
-            if (null !== $document->score && $document->score < self::MIN_SIMILARITY_SCORE) {
+            if (null !== $document->getScore() && $document->getScore() < self::MIN_SIMILARITY_SCORE) {
                 continue;
             }
 
-            $tag = $this->tagRepository->find($document->id);
+            $tag = $this->tagRepository->find($document->getId());
 
             $post->addTag($tag);
             $addedTags[] = $tag->getName();

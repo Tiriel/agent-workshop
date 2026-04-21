@@ -8,7 +8,7 @@ ai:
     agent:
         default:
             platform: 'ai.platform.anthropic'
-            model: !php/const Symfony\AI\Platform\Bridge\Anthropic\Claude::HAIKU_3
+            model: 'claude-haiku-4-5-20251001'
             prompt: |
                 You are an example chat application where messages from the LLM are streamed to the user using
                 Server-Sent Events via `symfony/ux-turbo` / Turbo Streams. This example use very few custom
@@ -25,8 +25,14 @@ ai:
         postgres:
             posts:
                 dbal_connection: 'doctrine.dbal.default_connection'
+                setup_options:
+                    vector_size: 1024
+                distance: 'cosine'
             tags:
                 dbal_connection: 'doctrine.dbal.default_connection'
+                setup_options:
+                    vector_size: 1024
+                distance: 'cosine'
     vectorizer:
         voyage:
             platform: 'ai.platform.voyage'
@@ -57,14 +63,12 @@ ai:
             store: 'ai.store.postgres.tags'
 
     message_store:
-        doctrine:
-            dbal:
-                messages:
-                    connection: default
-                    table_name: messages
+        cache:
+            messages:
+                service: cache.app
 
     chat:
         app_chat:
             agent: 'ai.agent.default'
-            message_store: 'ai.message_store.doctrine.dbal.messages'
+            message_store: 'ai.message_store.cache.messages'
 

@@ -26,10 +26,10 @@ class TagsLoader implements LoaderInterface
                 continue;
             }
 
-            yield new TextDocument(
-                id: $tag->getId(),
-                content: $name,
-            );
+            $metadata = new Metadata([]);
+            $metadata->setText($name);
+
+            yield new TextDocument(id: $tag->getId(), content: $name, metadata: $metadata);
         }
     }
 }

@@ -20,17 +20,18 @@ abstract class AbstractPostLoader implements LoaderInterface
 
     protected function getTextDocumentFromPost(Post $post): TextDocument
     {
-        return new TextDocument(
-            id: $post->getId(),
-            content: sprintf("Title: %s\nAuthor: %s %s\nContent:\n%s",
-                $post->getTitle(),
-                $post->getAuthor()->getFirstname(),
-                $post->getAuthor()->getLastname(),
-                $post->getContent()
-            ),
-            metadata: new Metadata($this->normalizer->normalize($post, context: [
-                AbstractNormalizer::ATTRIBUTES => ['id', 'title', 'content', 'createdAt', 'updatedAt', 'publishedAt', 'status', 'tags' => ['name'], 'author' => ['id', 'email', 'firstname', 'lastname']],
-            ]))
+        $content = sprintf("Title: %s\nAuthor: %s %s\nContent:\n%s",
+            $post->getTitle(),
+            $post->getAuthor()->getFirstname(),
+            $post->getAuthor()->getLastname(),
+            $post->getContent()
         );
+
+        $metadata = new Metadata($this->normalizer->normalize($post, context: [
+            AbstractNormalizer::ATTRIBUTES => ['id', 'title', 'content', 'createdAt', 'updatedAt', 'publishedAt', 'status', 'tags' => ['name'], 'author' => ['id', 'email', 'firstname', 'lastname']],
+        ]));
+        $metadata->setText($content);
+
+        return new TextDocument(id: $post->getId(), content: $content, metadata: $metadata);
     }
 }

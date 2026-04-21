@@ -79,26 +79,7 @@ class PostRepository extends ServiceEntityRepository
         return round($totalTagCount / $totalPosts, 2);
     }
 
-    /**
-     * Find posts without tags.
-     *
-     * @return Post[]
-     */
-    public function findWithoutTags(?int $limit = null): array
-    {
-        $qb = $this->createQueryBuilder('p')
-            ->leftJoin('p.tags', 't')
-            ->where('t.id IS NULL');
-
-        if (\is_int($limit)) {
-            $qb->setMaxResults($limit);
-        }
-
-        return $qb->getQuery()
-            ->getResult();
-    }
-
-    //    /**
+//    /**
 //     * @return Post[] Returns an array of Post objects
 //     */
 //    public function findByExampleField($value): array
