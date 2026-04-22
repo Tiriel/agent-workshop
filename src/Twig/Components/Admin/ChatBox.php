@@ -53,7 +53,6 @@ class ChatBox extends AbstractController
             $this->renderBlock('broadcast/Message.stream.html.twig', 'create', ['entity' => $message]),
         ));
         $result = $this->chat->submit($message);
-        dump($result);
 
         $this->resetForm();
     }
