@@ -7,7 +7,7 @@ use App\Repository\PostRepository;
 use App\Repository\TagRepository;
 use Symfony\AI\Agent\Toolbox\Attribute\AsTool;
 use Symfony\AI\Store\RetrieverInterface;
-use Symfony\Component\DependencyInjection\Attribute\Autowire;
+use Symfony\Component\DependencyInjection\Attribute\Target;
 
 #[AsTool(
     name: 'auto_tag_posts',
@@ -19,7 +19,7 @@ final class SimilarityPostTagger
     private const int MAX_TAGS_PER_POST = 5;
 
     public function __construct(
-        #[Autowire('@ai.retriever.tags')]
+        #[Target('tags')]
         private readonly RetrieverInterface $tagsRetriever,
         private readonly PostRepository $postRepository,
         private readonly TagRepository $tagRepository,
@@ -53,15 +53,12 @@ final class SimilarityPostTagger
     private function tagPost(Post $post): ?string
     {
         $content = $post->getContent();
-        dump($content);
         $tagDocuments = $this->tagsRetriever->retrieve($content);
-        dump($tagDocuments);
 
         $addedTags = [];
         $count = 0;
 
         foreach ($tagDocuments as $document) {
-            dump($document);
             if ($count >= self::MAX_TAGS_PER_POST) {
                 break;
             }
