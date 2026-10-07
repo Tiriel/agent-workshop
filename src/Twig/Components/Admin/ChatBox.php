@@ -6,7 +6,8 @@ use App\Form\MessageType;
 use Symfony\AI\Chat\ChatInterface;
 use Symfony\AI\Chat\MessageStoreInterface;
 use Symfony\AI\Platform\Message\Message;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Bundle\FrameworkBundle\Controller\ControllerHelper;
+use Symfony\Component\DependencyInjection\Attribute\AutowireMethodOf;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Mercure\HubInterface;
 use Symfony\Component\Mercure\Update;
@@ -18,7 +19,7 @@ use Symfony\UX\LiveComponent\DefaultActionTrait;
 use Symfony\UX\TwigComponent\Attribute\ExposeInTemplate;
 
 #[AsLiveComponent]
-class ChatBox extends AbstractController
+class ChatBox
 {
     use DefaultActionTrait;
     use ComponentWithFormTrait;
@@ -27,35 +28,17 @@ class ChatBox extends AbstractController
     public string $title = '';
 
     #[LiveProp]
-    public bool $isOpen;
+    public bool $isOpen = false;
 
     public function __construct(
+        #[AutowireMethodOf(ControllerHelper::class)]
+        private readonly \Closure $createForm,
+        #[AutowireMethodOf(ControllerHelper::class)]
+        private readonly \Closure $renderBlock,
         private readonly ChatInterface $chat,
         private readonly MessageStoreInterface $store,
         private readonly HubInterface $hub,
-    ) {
-    }
-
-    public function mount(): void
-    {
-        $this->isOpen ??= false;
-    }
-
-    #[LiveAction]
-    public function save(): void
-    {
-        $this->submitForm();
-        $data = $this->getForm()->getData();
-        $message = Message::ofUser($data['content']);
-
-        $this->hub->publish(new Update(
-            'chat_messages',
-            $this->renderBlock('broadcast/Message.stream.html.twig', 'create', ['entity' => $message]),
-        ));
-        $result = $this->chat->submit($message);
-
-        $this->resetForm();
-    }
+    ) {}
 
     #[LiveAction]
     public function toggle(): void
@@ -63,14 +46,30 @@ class ChatBox extends AbstractController
         $this->isOpen = !$this->isOpen;
     }
 
-    #[ExposeInTemplate]
-    public function getMessages(): array
+    #[LiveAction]
+    public function save(): void
     {
-        return $this->store->load()->getMessages();
+        $this->submitForm();
+        $message = Message::ofUser($this->getForm()->getData()['content']);
+        $this->hub->publish(new Update(
+            'chat_messages',
+            ($this->renderBlock)(
+                'broadcast/Message.stream.html.twig',
+                'create',
+                ['entity' => $message],
+            ),
+        ));
+        $this->chat->submit($message);
     }
 
     protected function instantiateForm(): FormInterface
     {
-        return $this->createForm(MessageType::class);
+        return ($this->createForm)(MessageType::class);
+    }
+
+    #[ExposeInTemplate]
+    public function getMessages(): array
+    {
+        return $this->store->load()->getMessages();
     }
 }
