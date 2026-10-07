@@ -42,7 +42,7 @@
 		}
 		# Accept the tokens issued by MercureBundle's default "0.x" protocol version.
 		# Remove this line once your app sets "mercure.hubs.<name>.protocol_version: 1.0" and issues tokens with matching "iss" and "aud" claims.
-#		protocol_version_compatibility 8
+		protocol_version_compatibility 8
 		# Allow anonymous subscribers (double-check that it's what you want)
 		anonymous
 		# Enable the subscription API (double-check that it's what you want)

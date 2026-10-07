@@ -3,7 +3,7 @@ ai:
     agent:
         default:
             platform: 'ai.platform.anthropic'
-            model: !php/const Symfony\AI\Platform\Bridge\Anthropic\Claude::HAIKU_3
+            model: 'claude-haiku-4-5-20251001'
             prompt: |
                 You are an AI assistant for a blog management system.
                 Always use the tools at your disposal when you need.
