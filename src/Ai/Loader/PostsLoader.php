@@ -24,23 +24,28 @@ class PostsLoader implements LoaderInterface
                 continue;
             }
 
+            $text = sprintf("Title: %s\nAuthor: %s %s\nContent: %s",
+                $post->getTitle(),
+                $post->getAuthor()->getFirstname(),
+                $post->getAuthor()->getLastname(),
+                $post->getContent()
+            );
+            $metadata = new Metadata($this->normalizer->normalize($post, context: [
+                AbstractNormalizer::ATTRIBUTES => [
+                    'id',
+                    'title',
+                    'status',
+                    'tags' => ['name'],
+                    'author' => ['id', 'firstname', 'lastname']
+                ]
+            ]));
+            // Stored text is required by the hybrid (vector + full-text) query of the retriever
+            $metadata->setText($text);
+
             yield new TextDocument(
                 id: $post->getId(),
-                content: sprintf("Title: %s\nAuthor: %s %s\nContent: %s",
-                    $post->getTitle(),
-                    $post->getAuthor()->getFirstname(),
-                    $post->getAuthor()->getLastname(),
-                    $post->getContent()
-                ),
-                metadata: new Metadata($this->normalizer->normalize($post, context: [
-                    AbstractNormalizer::ATTRIBUTES => [
-                        'id',
-                        'title',
-                        'status',
-                        'tags' => ['name'],
-                        'author' => ['id', 'firstname', 'lastname']
-                    ]
-                ]))
+                content: $text,
+                metadata: $metadata,
             );
         }
     }

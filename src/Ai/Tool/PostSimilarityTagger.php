@@ -11,8 +11,8 @@ use Symfony\Component\DependencyInjection\Attribute\Autowire;
 #[AsTool(name: 'auto_tag_posts', description: 'Tags posts using semantic similarity')]
 final class PostSimilarityTagger
 {
-    // Retriever scores are cosine distances: lower is closer
-    private const MAX_DISTANCE = 0.5;
+    // Hybrid (vector + full-text) retriever scores: higher is better, typically 0.2 to 0.3
+    private const SIMILARITY_THRESHOLD = 0.25;
 
     public function __construct(
         #[Autowire('@ai.retriever.tags')] private readonly RetrieverInterface $retriever,
@@ -25,7 +25,7 @@ final class PostSimilarityTagger
         $posts = $this->postRepo->findWithoutTags($limit);
         foreach ($posts as $post) {
             foreach ($this->retriever->retrieve($post->getContent()) as $doc) {
-                if ($doc->getScore() <= self::MAX_DISTANCE) {
+                if ($doc->getScore() >= self::SIMILARITY_THRESHOLD) {
                     $post->addTag($this->tagRepo->find($doc->getId()));
                 }
             }

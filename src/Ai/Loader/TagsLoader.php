@@ -4,6 +4,7 @@ namespace App\Ai\Loader;
 
 use App\Repository\TagRepository;
 use Symfony\AI\Store\Document\LoaderInterface;
+use Symfony\AI\Store\Document\Metadata;
 use Symfony\AI\Store\Document\TextDocument;
 
 class TagsLoader implements LoaderInterface
@@ -23,6 +24,8 @@ class TagsLoader implements LoaderInterface
             yield new TextDocument(
                 id: $tag->getId(),
                 content: $name,
+                // Stored text is required by the hybrid (vector + full-text) query of the retriever
+                metadata: new Metadata([Metadata::KEY_TEXT => $name]),
             );
         }
     }
