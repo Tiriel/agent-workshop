@@ -15,8 +15,10 @@ services:
     environment:
       FRANKENPHP_WORKER_CONFIG: watch
       MERCURE_EXTRA_DIRECTIVES: |
-        demo
-        transport=bolt:///data/mercure.db
+        playground
+        transport bolt {
+          path /data/mercure.db
+        }
       # See https://xdebug.org/docs/all_settings#mode
       XDEBUG_MODE: "${XDEBUG_MODE:-off}"
       APP_ENV: "${APP_ENV:-dev}"

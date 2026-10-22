@@ -14,6 +14,9 @@ services:
       MERCURE_URL: ${CADDY_MERCURE_URL:-http://php/.well-known/mercure}
       MERCURE_PUBLIC_URL: ${CADDY_MERCURE_PUBLIC_URL:-https://${SERVER_NAME:-localhost}:${HTTPS_PORT:-443}/.well-known/mercure}
       MERCURE_JWT_SECRET: ${CADDY_MERCURE_JWT_SECRET:-!ChangeThisMercureHubJWTSecretKey!}
+      # Mercure protocol 1.0: the hub trusts this issuer, the app signs its tokens with it
+      MERCURE_TRUSTED_ISSUERS: ${CADDY_MERCURE_ISSUER:-https://localhost}
+      MERCURE_JWT_ISSUER: ${CADDY_MERCURE_ISSUER:-https://localhost}
       # The two next lines can be removed after initial installation
       SYMFONY_VERSION: ${SYMFONY_VERSION:-}
       STABILITY: ${STABILITY:-stable}

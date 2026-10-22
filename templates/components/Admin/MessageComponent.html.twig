@@ -12,7 +12,7 @@
         <div>
             <div class="chat-message chat-message-{{ isBot ? 'bot' : 'user' }}">
                 {% if isBot %}
-                    {{ message.content|markdown_to_html }}
+                    {{ message.asText|markdown_to_html }}
                 {% else %}
                     {% for content in message.content %}
                         {{ content.text|markdown_to_html }}
