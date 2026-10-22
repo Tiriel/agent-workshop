@@ -7,7 +7,6 @@ use App\Entity\Tag;
 use App\Repository\PostRepository;
 use App\Repository\TagRepository;
 use Symfony\AI\Agent\Toolbox\Attribute\AsTool;
-use Symfony\AI\Platform\Bridge\Anthropic\Claude;
 use Symfony\AI\Platform\Message\Message;
 use Symfony\AI\Platform\Message\MessageBag;
 use Symfony\AI\Platform\PlatformInterface;
@@ -62,7 +61,7 @@ final class TagCreator
             $content
         );
 
-        $response = $this->platform->invoke(Claude::HAIKU_3, new MessageBag(Message::ofUser($prompt)));
+        $response = $this->platform->invoke('claude-haiku-4-5-20251001', new MessageBag(Message::ofUser($prompt)));
         $tagNamesRaw = (string) $response->getResult()->getContent();
 
         $tagNames = array_filter(array_map('trim', explode(',', $tagNamesRaw)));
