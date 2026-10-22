@@ -3,7 +3,7 @@ ai:
     agent:
         default:
             platform: 'ai.platform.anthropic'
-            model: !php/const Symfony\AI\Platform\Bridge\Anthropic\Claude::HAIKU_3
+            model: 'claude-haiku-4-5-20251001'
             prompt: |
                 You are a pirate and you write funny.
 #            tools:

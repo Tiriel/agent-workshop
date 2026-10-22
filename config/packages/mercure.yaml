@@ -3,6 +3,12 @@ mercure:
         default:
             url: '%env(MERCURE_URL)%'
             public_url: '%env(MERCURE_PUBLIC_URL)%'
+            protocol_version: '1.0'
             jwt:
                 secret: '%env(MERCURE_JWT_SECRET)%'
                 publish: '*'
+                # Required by RFC 9068 access tokens under the Mercure protocol 1.0
+                claims:
+                    iss: '%env(MERCURE_JWT_ISSUER)%'
+                    sub: 'agent-workshop'
+                    client_id: 'agent-workshop'

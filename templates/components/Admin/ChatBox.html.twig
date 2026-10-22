@@ -9,9 +9,9 @@
                 {{ stimulus_action('live', 'action', null, {'action': 'toggle'}) }}
             ></button>
         </div>
+        {{ turbo_stream_from('chat_messages') }}
         <div class="chat-messages"
              id="messages"
-             {{ turbo_stream_listen('chat_messages') }}
         >
             {% for message in this.messages %}
             <twig:Admin:MessageComponent :message="message" isLast="{{ loop.last ? true }}" />
