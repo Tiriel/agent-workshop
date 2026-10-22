@@ -66,7 +66,11 @@ class ChatBox extends AbstractController
     #[ExposeInTemplate]
     public function getMessages(): array
     {
-        return $this->store->load()->getMessages();
+        // The stored bag also holds the system prompt and tool-call messages added during the agent run
+        return $this->store->load()
+            ->withoutSystemMessage()
+            ->withoutToolMessages()
+            ->getMessages();
     }
 
     protected function instantiateForm(): FormInterface
