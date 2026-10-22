@@ -15,8 +15,7 @@ use Symfony\Component\DependencyInjection\Attribute\Target;
 )]
 final class SimilarityPostTagger
 {
-    // Retriever scores are cosine distances: lower is closer (cosine similarity >= 0.2)
-    private const float MAX_DISTANCE = 0.8;
+    private const float MIN_SIMILARITY_SCORE = 0.2;
     private const int MAX_TAGS_PER_POST = 5;
 
     public function __construct(
@@ -64,7 +63,7 @@ final class SimilarityPostTagger
                 break;
             }
 
-            if (null !== $document->getScore() && $document->getScore() > self::MAX_DISTANCE) {
+            if (null !== $document->getScore() && $document->getScore() < self::MIN_SIMILARITY_SCORE) {
                 continue;
             }
 
